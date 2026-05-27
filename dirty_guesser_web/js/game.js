@@ -4,6 +4,7 @@ class Game {
         this.currentIndex = 0;
         this.score = 0;
         this.currentScenario = null;
+        this.attemptsLeft = 3;
     }
 
     shuffle(array) {
@@ -32,9 +33,16 @@ class Game {
         if (normalizedGuess === normalizedAnswer) {
             this.score++;
             this.currentIndex++;
+            this.attemptsLeft = 3;
             return { correct: true, message: "Correct!" };
         } else {
-            return { correct: false, message: "Wrong!" };
+            this.attemptsLeft--;
+            if (this.attemptsLeft <= 0) {
+                this.currentIndex++;
+                this.attemptsLeft = 3;
+                return { correct: false, message: "Wrong! Out of attempts." };
+            }
+            return { correct: false, message: `Wrong! ${this.attemptsLeft} attempts left.` };
         }
     }
 

@@ -38,9 +38,10 @@ class Game {
         } else {
             this.attemptsLeft--;
             if (this.attemptsLeft <= 0) {
+                this.score = Math.max(0, this.score - 1);
                 this.currentIndex++;
                 this.attemptsLeft = 3;
-                return { correct: false, message: "Wrong! Out of attempts." };
+                return { correct: false, message: "Wrong! Out of attempts. -1 point" };
             }
             return { correct: false, message: `Wrong! ${this.attemptsLeft} attempts left.` };
         }
@@ -161,10 +162,15 @@ class UI {
             setTimeout(() => this.nextRound(), 1500);
         } else {
             this.audio.play('wrong');
+            this.scoreDisplay.textContent = this.game.getScore();
             this.feedback.textContent = result.message;
             this.feedback.className = 'wrong';
             this.feedback.classList.remove('hidden');
             this.guessInput.value = '';
+
+            if (result.message.includes("Out of attempts")) {
+                setTimeout(() => this.nextRound(), 1500);
+            }
         }
     }
 

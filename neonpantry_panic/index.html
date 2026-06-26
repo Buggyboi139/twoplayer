@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Pantry Panic</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="effects-layer" aria-hidden="true"></div>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<main id="app">
+    <section id="title-screen" class="screen active">
+        <div class="topline">
+            <button id="mute-btn" class="small-btn">Mute</button>
+            <div class="save-strip">
+                <span id="coin-bank">0 Coins</span>
+                <span id="high-score">High Score 0</span>
+            </div>
+        </div>
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <h1><span>Neon</span> Pantry Panic</h1>
+                <p class="tagline">Arcade game show meets cursed cooking show.</p>
+                <p class="host-line" id="title-host">Chef Byte is checking the pantry.</p>
+            </div>
+            <div class="stove-panel">
+                <div class="burner burner-a"></div>
+                <div class="burner burner-b"></div>
+                <div class="pan">PANTRY</div>
+                <div class="steam steam-one"></div>
+                <div class="steam steam-two"></div>
+            </div>
+        </div>
+        <div class="title-actions">
+            <button id="start-btn">Solo Run</button>
+            <button id="teams-btn">2 Teams</button>
+            <button id="chaos-toggle" class="secondary-btn">Chaos Mode Off</button>
+        </div>
+    </section>
+
+    <section id="category-screen" class="screen">
+        <div class="topline">
+            <button class="small-btn" data-screen="title-screen">Back</button>
+            <div class="scoreline" id="mode-label">Choose Station</div>
+        </div>
+        <h2>Pick a station</h2>
+        <div id="category-grid" class="category-grid"></div>
+    </section>
+
+    <section id="round-intro-screen" class="screen">
+        <div class="intro-card">
+            <p id="round-kicker">Round 1</p>
+            <h2 id="intro-dish">Dish Name</h2>
+            <p id="intro-meta">Difficulty</p>
+            <div id="service-modifier" class="service-modifier">Modifier</div>
+            <button id="begin-round-btn">Open Pantry</button>
+        </div>
+    </section>
+
+    <section id="game-screen" class="screen">
+        <div class="hud">
+            <button id="quit-btn" class="small-btn">Quit</button>
+            <div id="team-status">Solo Run</div>
+            <div>Score <span id="score">0</span></div>
+            <div>Streak <span id="streak">0</span></div>
+            <div>Lives <span id="lives">3</span></div>
+            <div>Round <span id="round-count">1/6</span></div>
+            <div id="timer">45</div>
+        </div>
+        <div class="tool-bar" id="tool-bar">
+            <button id="tool-freeze" class="tool-btn">Freeze +10</button>
+            <button id="tool-toss" class="tool-btn">Toss Decoys</button>
+            <button id="tool-shield" class="tool-btn">Safety Plate</button>
+        </div>
+        <div class="dish-board">
+            <div>
+                <p id="category-label">Category</p>
+                <h2 id="dish-name">Dish Name</h2>
+            </div>
+            <div id="progress-meter">
+                <span id="progress-text">0 / 0</span>
+                <div><i id="progress-fill"></i></div>
+                <p id="modifier-label">Modifier</p>
+            </div>
+        </div>
+        <div id="host-message" class="host-message">Pick the real ingredients.</div>
+        <div id="team-flash" aria-live="polite"></div>
+        <div id="ingredient-grid" class="ingredient-grid"></div>
+    </section>
+
+    <section id="round-result-screen" class="screen">
+        <div class="result-panel">
+            <p id="result-kicker">Round Complete</p>
+            <h2 id="result-title">Dish plated.</h2>
+            <p id="result-message">Chef Byte has opinions.</p>
+            <div id="round-stats" class="round-stats"></div>
+            <div class="recipe-reveal">
+                <h3>Recipe Reveal</h3>
+                <div id="recipe-list"></div>
+            </div>
+            <button id="next-round-btn">Next Round</button>
+        </div>
+    </section>
+
+    <section id="game-over-screen" class="screen">
+        <div class="end-panel">
+            <h2>Kitchen Meltdown</h2>
+            <p id="game-over-message">The pantry has filed a complaint.</p>
+            <p class="big-score">Score <span id="final-score-loss">0</span></p>
+            <div id="loss-standings" class="standings"></div>
+            <button class="restart-btn">Restart</button>
+        </div>
+    </section>
+
+    <section id="victory-screen" class="screen">
+        <div class="end-panel victory">
+            <h2>Service Complete</h2>
+            <p id="victory-message">Chef Byte reluctantly approves.</p>
+            <p class="big-score">Score <span id="final-score-win">0</span></p>
+            <div id="win-standings" class="standings"></div>
+            <button class="restart-btn">Play Again</button>
+        </div>
+    </section>
+</main>
+
+<script src="game.js"></script>
+</body>
+</html>

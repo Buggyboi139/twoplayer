@@ -7,6 +7,8 @@
     --accent-dirty-hover: #4f46e5;
     --accent-neon: #b066ff;
     --accent-neon-hover: #9d4edd;
+    --accent-pantry: #00e5ff;
+    --accent-pantry-hover: #00b8cc;
     --font-heading: 'Orbitron', sans-serif;
     --font-body: 'Inter', sans-serif;
 }
@@ -188,6 +190,28 @@ h1 {
 .card-neon:hover .card-cta {
     background: var(--accent-neon-hover);
     box-shadow: 0 0 20px var(--accent-neon);
+}
+
+.card-pantry:hover {
+    box-shadow: 0 20px 40px rgba(0, 229, 255, 0.2);
+    border-color: var(--accent-pantry);
+}
+
+.card-pantry .card-icon {
+    color: var(--accent-pantry);
+    font-family: var(--font-heading);
+    font-weight: 900;
+    text-shadow: 2px 0 #ff006e, -2px 0 var(--accent-pantry);
+}
+
+.card-pantry .card-cta {
+    background: var(--accent-pantry);
+    color: #001014;
+}
+
+.card-pantry:hover .card-cta {
+    background: var(--accent-pantry-hover);
+    box-shadow: 0 0 20px var(--accent-pantry);
 }
 
 .card-glow {

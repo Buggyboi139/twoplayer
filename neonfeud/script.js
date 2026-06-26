@@ -13,9 +13,146 @@ const sfx = {
 
 let isMuted = false;
 
+const LIFELINE_COSTS = {
+    fiftyFifty: 50,
+    hint: 75,
+    mulligan: 100
+};
+
+const PACK_TAGS = {
+    wild_web: ['weird', 'starter'],
+    '3am_webmd': ['health', 'starter'],
+    good_boy_inquiries: ['pets', 'weird'],
+    takeout_tragedies: ['food'],
+    state_secrets: ['places', 'weird'],
+    keyboard_warriors: ['tech', 'games'],
+    writers_watchlist: ['crime', 'weird'],
+    incognito_mode: ['relationships', 'weird'],
+    tin_foil_hats: ['conspiracy', 'weird'],
+    dear_google: ['tech', 'weird'],
+    '2am_thoughts': ['science', 'weird'],
+    tinder_terrors: ['relationships'],
+    side_hustle_scams: ['money', 'weird'],
+    mommy_blog_mysteries: ['parenting'],
+    corporate_survival: ['work'],
+    worldbuilder_history: ['letter_pool', 'writing'],
+    rage_quits_lp: ['letter_pool', 'games'],
+    canine_conundrums: ['letter_pool', 'pets'],
+    delivery_fee_regrets: ['letter_pool', 'food']
+};
+
+const DECOY_POOLS = {
+    general: [
+        'borrow a shovel', 'change my password', 'open a window', 'buy a trampoline',
+        'join a cult', 'cancel a wedding', 'text my landlord', 'hide a receipt',
+        'start a podcast', 'move to ohio', 'call customer service', 'delete my history',
+        'rent a fog machine', 'wear a cape', 'buy more batteries', 'use duct tape',
+        'fake an accent', 'learn morse code', 'name a boat', 'microwave socks',
+        'sleep in jeans', 'paint the ceiling', 'sell a canoe', 'argue with a robot',
+        'bring a ladder', 'order a trophy', 'wash a keyboard', 'freeze a sandwich'
+    ],
+    weird: [
+        'see through walls', 'taste colors', 'haunt a basement', 'summon a lawyer',
+        'glow in the dark', 'hear static', 'smell pennies', 'become magnetic',
+        'dream in spreadsheets', 'argue with mirrors', 'collect fake teeth', 'fear balloons',
+        'trust a clown college', 'eat chalk', 'sneeze glitter', 'join a moon club'
+    ],
+    health: [
+        'turn purple', 'buzz at night', 'smell like pennies', 'itch after pizza',
+        'click when walking', 'feel too quiet', 'pulse in my elbow', 'make a tiny whistle',
+        'taste like metal', 'look pixelated', 'vibrate randomly', 'hurt near tuesday'
+    ],
+    pets: [
+        'file taxes', 'judge my outfit', 'steal my chair', 'hate my ringtone',
+        'lick the remote', 'guard the fridge', 'fear my slippers', 'bark at soup',
+        'hide my keys', 'watch television', 'sleep in laundry', 'ignore expensive toys'
+    ],
+    food: [
+        'expired mustard', 'cold spaghetti', 'airport sushi', 'wet cereal',
+        'burnt toast', 'frozen gravy', 'pocket cheese', 'garage lasagna',
+        'mystery dip', 'gas station salad', 'leftover frosting', 'bag soup'
+    ],
+    places: [
+        'New Hampshire', 'Puerto Rico', 'Delaware', 'North Dakota',
+        'Rhode Island', 'Guam', 'Vermont', 'New Mexico',
+        'Wyoming', 'Montana', 'Maine', 'Idaho'
+    ],
+    tech: [
+        'printer ink', 'bluetooth toaster', 'forgotten password', 'router lights',
+        'caps lock', 'browser cookies', 'usb hub', 'smart fridge',
+        'two monitors', 'broken charger', 'cloud storage', 'spam folder'
+    ],
+    games: [
+        'side quest', 'loot box', 'patch notes', 'spawn point',
+        'save file', 'loading screen', 'speedrun', 'boss music',
+        'controller drift', 'tutorial island', 'party chat', 'respawn timer'
+    ],
+    crime: [
+        'locked diary', 'missing receipt', 'fake mustache', 'burner phone',
+        'library alibi', 'rubber gloves', 'security badge', 'parking ticket',
+        'mysterious envelope', 'hotel pen', 'muddy footprint', 'wrong suitcase'
+    ],
+    relationships: [
+        'shared calendar', 'group chat', 'bad tattoo', 'matching hoodie',
+        'read receipt', 'ex playlist', 'family dinner', 'secret account',
+        'awkward silence', 'anniversary coupon', 'borrowed sweatshirt', 'double text'
+    ],
+    conspiracy: [
+        'weather balloon', 'secret tunnel', 'number station', 'fake satellite',
+        'underground bunker', 'red string board', 'missing file', 'radio tower',
+        'hidden camera', 'classified stamp', 'old map', 'signal jammer'
+    ],
+    science: [
+        'parallel parking', 'gravity bill', 'moon dust', 'time loop',
+        'lab goggles', 'space elevator', 'quantum sandwich', 'solar flare',
+        'blacklight poster', 'tiny microscope', 'antimatter coupon', 'star chart'
+    ],
+    money: [
+        'coupon fraud', 'garage startup', 'expired gift card', 'crypto wallet',
+        'side hustle course', 'vending machine', 'tax loophole', 'cash envelope',
+        'yard sale', 'rental scooter', 'mystery invoice', 'business idea'
+    ],
+    parenting: [
+        'sticky tablet', 'school email', 'missing sock', 'toy catalog',
+        'juice box', 'car seat snack', 'bedtime chart', 'crayon wall',
+        'birthday invite', 'tiny shoe', 'bath toy', 'laundry pile'
+    ],
+    travel: [
+        'boarding group', 'middle seat', 'gate change', 'lost luggage',
+        'hotel deposit', 'rental car', 'passport photo', 'overhead bin',
+        'travel pillow', 'delayed train', 'resort fee', 'tiny shampoo'
+    ],
+    home: [
+        'crawl space', 'sump pump', 'breaker box', 'paint sample',
+        'gutter guard', 'doorbell camera', 'weed killer', 'garage shelf',
+        'water heater', 'tile grout', 'attic fan', 'trash day'
+    ],
+    family: [
+        'group photo', 'kids table', 'guest room', 'family recipe',
+        'shared dessert', 'holiday card', 'old argument', 'matching pajamas',
+        'folding chair', 'leftover pie', 'aunt email', 'casserole dish'
+    ],
+    school: [
+        'permission slip', 'lunch account', 'reading log', 'picture day',
+        'book fair', 'bus route', 'field trip', 'lost hoodie',
+        'classroom app', 'math packet', 'spirit week', 'school calendar'
+    ],
+    work: [
+        'reply all', 'calendar invite', 'status meeting', 'coffee badge',
+        'spreadsheet error', 'desk plant', 'parking pass', 'office microwave',
+        'shared drive', 'performance review', 'expense report', 'muted meeting'
+    ]
+};
+
+let lifelinesUsed = {
+    fiftyFifty: false,
+    hint: false,
+    mulligan: false
+};
+
 function toggleMute() {
     isMuted = !isMuted;
-    document.getElementById('mute-btn').textContent = isMuted ? '🔇 Unmute' : '🔊 Mute';
+    document.getElementById('mute-btn').textContent = isMuted ? 'Unmute' : 'Mute';
 }
 
 function playSfx(name) {
@@ -31,9 +168,19 @@ function vibrate(pattern) {
     }
 }
 
+function readStoredJson(key, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : fallback;
+    } catch (e) {
+        localStorage.removeItem(key);
+        return fallback;
+    }
+}
+
 let bank = parseInt(localStorage.getItem('rf_coins')) || 0;
-let unlockedPacks = JSON.parse(localStorage.getItem('rf_unlocks')) ||['wild_web', 'worldbuilder_history', 'hl_food_fight'];
-let customPacks = JSON.parse(localStorage.getItem('rf_custom_packs')) || [];
+let unlockedPacks = readStoredJson('rf_unlocks', ['wild_web', '3am_webmd', 'worldbuilder_history']);
+let customPacks = readStoredJson('rf_custom_packs', []);
 
 let allPacks =[];
 let selectedPack = null;
@@ -54,31 +201,96 @@ let totalActualReveals = 0;
 let timerInterval;
 let timeLeft = 60;
 let wagerAmount = 0;
-let hlIndex = 0;
 
 window.onload = async () => {
     updateBankUI();
     try {
         const response = await fetch('packs.json');
         let fetchedPacks = await response.json();
-        allPacks = [...fetchedPacks, ...customPacks];
+        allPacks = [...fetchedPacks, ...customPacks].filter(pack => pack.type !== 'higher_lower');
     } catch (e) {
-        allPacks = [...customPacks];
+        allPacks = [...customPacks].filter(pack => pack.type !== 'higher_lower');
     }
 };
 
 function applyTheme(color) {
-    if(!color) color = '#b066ff';
+    if(!color) color = '#00FFFF';
     document.documentElement.style.setProperty('--theme-color', color);
-    let grad = `linear-gradient(135deg, ${color}, #ffffff)`;
+    let grad = `linear-gradient(135deg, ${color}, #FF006E)`;
     document.documentElement.style.setProperty('--theme-grad', grad);
 }
 
 function updateBankUI() {
-    document.getElementById('menu-bank').textContent = `💰 ${bank} Coins`;
-    document.getElementById('store-bank').textContent = `💰 ${bank} Coins`;
+    document.getElementById('menu-bank').textContent = `${bank} Coins`;
+    document.getElementById('store-bank').textContent = `${bank} Coins`;
+    unlockedPacks = unlockedPacks.filter(id => !id.startsWith('hl_'));
     localStorage.setItem('rf_coins', bank);
     localStorage.setItem('rf_unlocks', JSON.stringify(unlockedPacks));
+}
+
+function getModeLabel(type) {
+    if (type === 'letter_pool') return 'Letter Pool';
+    return 'Feud Mode';
+}
+
+function getPackTags(pack) {
+    return pack.tags || PACK_TAGS[pack.id] || (pack.type === 'letter_pool' ? ['letter_pool'] : ['weird']);
+}
+
+function normalizeChoice(value) {
+    return String(value || '').trim().toLowerCase();
+}
+
+function getQuestionAnswers(question) {
+    if (!question) return [];
+    return Array.isArray(question.a) ? question.a : [question.a];
+}
+
+function getAllAnswerSet() {
+    const answers = new Set();
+    allPacks.forEach(pack => {
+        pack.questions.forEach(question => {
+            getQuestionAnswers(question).forEach(answer => answers.add(normalizeChoice(answer)));
+        });
+    });
+    return answers;
+}
+
+function uniqueCleanChoices(values) {
+    const seen = new Set();
+    return values
+        .map(value => String(value || '').trim())
+        .filter(value => {
+            const normalized = normalizeChoice(value);
+            if (!normalized || seen.has(normalized)) return false;
+            seen.add(normalized);
+            return true;
+        });
+}
+
+function pickChoices(values, count) {
+    return uniqueCleanChoices(values).sort(() => 0.5 - Math.random()).slice(0, count);
+}
+
+function isFinalRound() {
+    return currentQIdx === activeQuestions.length - 1;
+}
+
+function flashTeamTurn(isSteal = false) {
+    const flash = document.getElementById('team-flash');
+    if (!flash || !teams.length) return;
+
+    const label = isCoop ? 'Play' : `Team ${teams[currentTeamIdx].id}${isSteal ? ' Steal' : ''}`;
+    flash.textContent = label;
+    flash.classList.remove('active', 'steal-flash');
+    void flash.offsetWidth;
+    if (isSteal) flash.classList.add('steal-flash');
+    flash.classList.add('active');
+
+    clearTimeout(flash._timer);
+    flash._timer = setTimeout(() => {
+        flash.classList.remove('active', 'steal-flash');
+    }, 1200);
 }
 
 function wipeData() {
@@ -92,7 +304,7 @@ function showScreen(id) {
     playSfx('click');
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    applyTheme('#b066ff');
+    applyTheme('#00FFFF');
 }
 
 function openAbout() { playSfx('click'); document.getElementById('about-modal').classList.add('active'); }
@@ -115,22 +327,36 @@ function goToStore() {
         const isOwned = unlockedPacks.includes(pack.id) || pack.unlockedByDefault;
         if(pack.unlockedByDefault && !unlockedPacks.includes(pack.id)) unlockedPacks.push(pack.id);
 
-        let icon = '🔍';
-        if(pack.type === 'letter_pool') icon = '🅰️';
-        if(pack.type === 'higher_lower') icon = '📈';
-
         const card = document.createElement('div');
         card.className = 'pack-card';
-        card.innerHTML = `
-            <div>
-                <h3 style="color:${pack.color || 'var(--theme-color)'}">${icon} ${pack.name}</h3>
-                <p>${pack.description}</p>
-                <p style="color:#aaa">${pack.questions.length} Questions</p>
-            </div>
-            <button class="buy-btn ${isOwned ? 'owned' : ''}" onclick="buyPack('${pack.id}', ${pack.price})">
-                ${isOwned ? 'Owned' : 'Buy: 💰 ' + pack.price}
-            </button>
-        `;
+
+        const details = document.createElement('div');
+        details.className = 'pack-card-body';
+        const title = document.createElement('h3');
+        title.textContent = pack.name;
+        if(pack.color) title.style.color = pack.color;
+        const description = document.createElement('p');
+        description.textContent = pack.description;
+
+        const meta = document.createElement('div');
+        meta.className = 'pack-meta';
+        [getModeLabel(pack.type), `${pack.questions.length} Rounds`, ...getPackTags(pack), isOwned ? 'Owned' : `${pack.price} Coins`].forEach(text => {
+            const item = document.createElement('span');
+            item.textContent = text;
+            meta.appendChild(item);
+        });
+
+        details.appendChild(title);
+        details.appendChild(description);
+        details.appendChild(meta);
+
+        const buyButton = document.createElement('button');
+        buyButton.className = `buy-btn ${isOwned ? 'owned' : ''}`;
+        buyButton.textContent = isOwned ? 'Owned' : `Buy - ${pack.price} Coins`;
+        buyButton.onclick = () => buyPack(pack.id, pack.price);
+
+        card.appendChild(details);
+        card.appendChild(buyButton);
         container.appendChild(card);
     });
     updateBankUI();
@@ -154,9 +380,15 @@ function goToCreator() {
     buildCreatorForm();
 }
 
+function parseCommaList(value) {
+    return uniqueCleanChoices(String(value || '').split(','));
+}
+
 function buildCreatorForm() {
     let type = document.getElementById('c-pack-type').value;
     let container = document.getElementById('creator-questions');
+    let decoyInput = document.getElementById('c-pack-decoys');
+    if(decoyInput) decoyInput.style.display = type === 'feud' ? 'block' : 'none';
     container.innerHTML = '';
     for(let i=1; i<=5; i++) {
         let block = document.createElement('div');
@@ -179,6 +411,8 @@ function buildCreatorForm() {
 function saveCustomPack() {
     let name = document.getElementById('c-pack-name').value;
     let type = document.getElementById('c-pack-type').value;
+    let tags = parseCommaList(document.getElementById('c-pack-tags').value).map(tag => tag.toLowerCase());
+    let decoys = parseCommaList(document.getElementById('c-pack-decoys').value);
     if(!name) return alert("Name required");
     
     let pack = {
@@ -188,9 +422,12 @@ function saveCustomPack() {
         price: 0,
         unlockedByDefault: true,
         type: type,
-        color: "#ffffff",
+        color: "#00FFFF",
+        tags: tags,
         questions:[]
     };
+
+    if(type === 'feud' && decoys.length) pack.decoys = decoys;
 
     for(let i=1; i<=5; i++) {
         let q = document.getElementById(`cq-${i}`).value;
@@ -217,6 +454,83 @@ function saveCustomPack() {
     showScreen('menu-screen');
 }
 
+function validateImportedPack(pack) {
+    if(!pack || typeof pack !== 'object') return null;
+    if(!pack.name || !pack.type || !Array.isArray(pack.questions)) return null;
+    if(!['feud', 'letter_pool'].includes(pack.type)) return null;
+
+    const cleanPack = {
+        id: String(pack.id || `custom_${Date.now()}_${Math.floor(Math.random() * 10000)}`).replace(/[^a-zA-Z0-9_-]/g, '_'),
+        name: String(pack.name).trim(),
+        description: String(pack.description || 'Custom imported pack.').trim(),
+        price: 0,
+        unlockedByDefault: true,
+        type: pack.type,
+        color: String(pack.color || '#00FFFF'),
+        tags: Array.isArray(pack.tags) ? uniqueCleanChoices(pack.tags).map(tag => tag.toLowerCase()) : [],
+        questions: []
+    };
+
+    if(Array.isArray(pack.decoys)) cleanPack.decoys = uniqueCleanChoices(pack.decoys);
+
+    pack.questions.forEach(question => {
+        if(!question || !question.q) return;
+        if(cleanPack.type === 'feud') {
+            if(!Array.isArray(question.a) || question.a.length < 4) return;
+            const answers = uniqueCleanChoices(question.a).slice(0, 4);
+            if(answers.length === 4) {
+                const cleanQuestion = { q: String(question.q).trim(), a: answers };
+                if(Array.isArray(question.decoys)) cleanQuestion.decoys = uniqueCleanChoices(question.decoys);
+                cleanPack.questions.push(cleanQuestion);
+            }
+        } else if(typeof question.a === 'string' && question.a.trim()) {
+            cleanPack.questions.push({ q: String(question.q).trim(), a: question.a.trim().toUpperCase() });
+        }
+    });
+
+    return cleanPack.questions.length ? cleanPack : null;
+}
+
+function exportCustomPacks() {
+    playSfx('click');
+    const transfer = document.getElementById('custom-pack-transfer');
+    transfer.value = JSON.stringify(customPacks, null, 2);
+    transfer.focus();
+}
+
+function importCustomPacks() {
+    playSfx('click');
+    const transfer = document.getElementById('custom-pack-transfer');
+    let imported;
+    try {
+        imported = JSON.parse(transfer.value);
+    } catch (e) {
+        alert("Import JSON is not valid.");
+        return;
+    }
+
+    const incoming = Array.isArray(imported) ? imported : [imported];
+    const cleanPacks = incoming.map(validateImportedPack).filter(Boolean);
+    if(!cleanPacks.length) {
+        alert("No valid custom packs found.");
+        return;
+    }
+
+    const existingIds = new Set(customPacks.map(pack => pack.id));
+    cleanPacks.forEach(pack => {
+        while(existingIds.has(pack.id)) pack.id = `${pack.id}_${Date.now()}`;
+        existingIds.add(pack.id);
+        customPacks.push(pack);
+        allPacks.push(pack);
+        if(!unlockedPacks.includes(pack.id)) unlockedPacks.push(pack.id);
+    });
+
+    localStorage.setItem('rf_custom_packs', JSON.stringify(customPacks));
+    updateBankUI();
+    alert(`Imported ${cleanPacks.length} custom pack${cleanPacks.length === 1 ? '' : 's'}.`);
+    transfer.value = '';
+}
+
 function goToPackSelect() {
     showScreen('setup-screen');
     resetPackSelection();
@@ -226,10 +540,7 @@ function goToPackSelect() {
     allPacks.forEach(pack => {
         if(unlockedPacks.includes(pack.id) || pack.unlockedByDefault) {
             const btn = document.createElement('button');
-            let icon = '🔍';
-            if(pack.type === 'letter_pool') icon = '🅰️';
-            if(pack.type === 'higher_lower') icon = '📈';
-            btn.textContent = `${icon} ${pack.name}`;
+            btn.textContent = `${pack.name} - ${getModeLabel(pack.type)} - ${getPackTags(pack).join(', ')}`;
             if(pack.color) btn.style.borderTopColor = pack.color;
             btn.onclick = () => {
                 playSfx('click');
@@ -237,7 +548,7 @@ function goToPackSelect() {
                 applyTheme(pack.color);
                 document.getElementById('pack-select-container').style.display = 'none';
                 document.getElementById('step-1-title').style.display = 'none';
-                document.getElementById('selected-pack-display').textContent = `Pack: ${pack.name}`;
+                document.getElementById('selected-pack-display').textContent = `${pack.name} - ${getModeLabel(pack.type)}`;
                 document.getElementById('team-selection-area').style.display = 'block';
             };
             pContainer.appendChild(btn);
@@ -247,7 +558,7 @@ function goToPackSelect() {
 
 function resetPackSelection() {
     selectedPack = null;
-    applyTheme('#b066ff');
+    applyTheme('#00FFFF');
     document.getElementById('pack-select-container').style.display = 'flex';
     document.getElementById('step-1-title').style.display = 'block';
     document.getElementById('team-selection-area').style.display = 'none';
@@ -257,6 +568,8 @@ function startGame(numTeams) {
     playSfx('click');
     isCoop = (numTeams === 1);
     teams = Array.from({length: numTeams}, (_, i) => ({ id: i+1, score: 0 }));
+    currentTeamIdx = 0;
+    lifelinesUsed = { fiftyFifty: false, hint: false, mulligan: false };
     
     let maxQ = Math.min(5, selectedPack.questions.length);
     activeQuestions =[...selectedPack.questions].sort(() => 0.5 - Math.random()).slice(0, maxQ);
@@ -264,11 +577,11 @@ function startGame(numTeams) {
     
     if (selectedPack.type === 'letter_pool') {
         activeQuestions.forEach(q => {
-            let uniqueLetters = new Set(q.a.toUpperCase().split(''));
+            let uniqueLetters = new Set(q.a.toUpperCase().split('').filter(c => c.trim() !== ''));
             totalPossibleReveals += uniqueLetters.size;
         });
     } else {
-        totalPossibleReveals = activeQuestions.length * 4;
+        totalPossibleReveals = activeQuestions.reduce((sum, q) => sum + q.a.length, 0);
     }
     
     totalActualReveals = 0;
@@ -278,7 +591,7 @@ function startGame(numTeams) {
 }
 
 function checkWagerOrSetup() {
-    if (currentQIdx === 4 && !isCoop) {
+    if (isFinalRound() && !isCoop) {
         showWagerModal();
     } else {
         setupRound();
@@ -287,7 +600,7 @@ function checkWagerOrSetup() {
 
 function showWagerModal() {
     document.getElementById('wager-modal').classList.add('active');
-    document.getElementById('wager-prompt').textContent = `Team ${teams[currentTeamIdx].id}, wager up to your score of ${teams[currentTeamIdx].score}!`;
+    document.getElementById('wager-prompt').textContent = `Team ${teams[currentTeamIdx].id}, wager up to ${teams[currentTeamIdx].score} points.`;
     let input = document.getElementById('wager-input');
     input.max = teams[currentTeamIdx].score;
     input.value = 0;
@@ -302,6 +615,16 @@ function submitWager() {
     wagerAmount = input;
     document.getElementById('wager-modal').classList.remove('active');
     setupRound();
+}
+
+function beginStealTurn() {
+    isStealMode = true;
+    currentTeamIdx = (currentTeamIdx + 1) % teams.length;
+    document.getElementById('steal-banner').style.display = 'block';
+    document.getElementById('strikes-display').textContent = ''; 
+    startTimer(); 
+    renderScores();
+    flashTeamTurn(true);
 }
 
 function startTimer() {
@@ -331,11 +654,7 @@ function forceStrikeOut() {
         roundBank = 0; setTimeout(finishRound, 1000);
     } else {
         setTimeout(() => {
-            isStealMode = true; currentTeamIdx = (currentTeamIdx + 1) % teams.length;
-            document.getElementById('steal-banner').style.display = 'block';
-            document.getElementById('strikes-display').textContent = ''; 
-            startTimer(); 
-            renderScores();
+            beginStealTurn();
         }, 1000);
     }
 }
@@ -348,13 +667,31 @@ function getDecoyLetters(excludeLetters, totalTiles) {
 }
 
 function getFeudDistractors(currentQuestion, pack) {
-    let allValidAnswers =[];
-    pack.questions.forEach(q => {
-        if(q.q !== currentQuestion.q) allValidAnswers.push(...q.a);
+    const activeAnswers = new Set(currentQuestion.a.map(normalizeChoice));
+    const allKnownAnswers = getAllAnswerSet();
+    const tagPool = getPackTags(pack).flatMap(tag => DECOY_POOLS[tag] || []);
+    const explicitQuestionDecoys = Array.isArray(currentQuestion.decoys) ? currentQuestion.decoys : [];
+    const explicitPackDecoys = Array.isArray(pack.decoys) ? pack.decoys : [];
+    const sourcePool = [
+        ...explicitQuestionDecoys,
+        ...explicitPackDecoys,
+        ...tagPool,
+        ...DECOY_POOLS.general
+    ];
+
+    let candidates = uniqueCleanChoices(sourcePool).filter(choice => {
+        const normalized = normalizeChoice(choice);
+        return !activeAnswers.has(normalized) && !allKnownAnswers.has(normalized);
     });
-    if(allValidAnswers.length === 0) allValidAnswers =["Apple", "Banana", "Car", "Dog", "House"];
-    let uniqueDistractors = [...new Set(allValidAnswers)].sort(() => 0.5 - Math.random());
-    return uniqueDistractors.slice(0, 4);
+
+    if (candidates.length < 4) {
+        candidates = uniqueCleanChoices([...candidates, ...DECOY_POOLS.general]).filter(choice => {
+            const normalized = normalizeChoice(choice);
+            return !activeAnswers.has(normalized) && !allKnownAnswers.has(normalized);
+        });
+    }
+
+    return pickChoices(candidates, 4);
 }
 
 function setupRound() {
@@ -372,19 +709,7 @@ function setupRound() {
     const choices = document.getElementById('choices-container');
     choices.innerHTML = '';
 
-    if (selectedPack.type === 'higher_lower') {
-        document.getElementById('board-container').style.display = 'none';
-        document.getElementById('letter-board-container').style.display = 'none';
-        document.getElementById('choices-container').style.display = 'none';
-        document.getElementById('question-text').style.display = 'block';
-        document.getElementById('hl-board-container').style.display = 'flex';
-        document.getElementById('hl-choices-container').style.display = 'grid';
-        document.getElementById('lifeline-bar').style.display = 'none';
-        hlIndex = 0;
-        renderHLPair();
-    } else if (selectedPack.type === 'letter_pool') {
-        document.getElementById('hl-board-container').style.display = 'none';
-        document.getElementById('hl-choices-container').style.display = 'none';
+    if (selectedPack.type === 'letter_pool') {
         document.getElementById('board-container').style.display = 'none';
         document.getElementById('question-text').style.display = 'block';
         document.getElementById('letter-board-container').style.display = 'flex';
@@ -393,6 +718,15 @@ function setupRound() {
         let targetWord = qData.a.toUpperCase();
         let uniqueLetters = [...new Set(targetWord.split(''))].filter(c => c.trim() !== '');
         currentAnswers = uniqueLetters.map(l => ({ text: l, revealed: false, points: 50 }));
+        let playableChars = targetWord.split('').filter(char => char.trim() !== '' && char !== '-');
+        let freeLetters = [...new Set([playableChars[0], playableChars[playableChars.length - 1]].filter(Boolean))];
+        currentAnswers.forEach(answer => {
+            if (freeLetters.includes(answer.text)) {
+                answer.revealed = true;
+                revealedCount++;
+                totalActualReveals++;
+            }
+        });
         
         const lbc = document.getElementById('letter-board-container');
         lbc.innerHTML = '';
@@ -405,6 +739,10 @@ function setupRound() {
                 div.id = `blank-${idx}`;
                 div.textContent = char;
                 div.dataset.char = char;
+                if (freeLetters.includes(char)) {
+                    div.classList.remove('hidden-letter');
+                    div.classList.add('revealed-letter', 'free-letter');
+                }
             }
             lbc.appendChild(div);
         });
@@ -416,13 +754,15 @@ function setupRound() {
             let btn = document.createElement('button');
             btn.className = 'choice-btn letter-btn';
             btn.textContent = letter;
+            if (freeLetters.includes(letter)) {
+                btn.classList.add('correct');
+                btn.disabled = true;
+            }
             btn.onclick = () => processLetterChoice(btn, letter, uniqueLetters.length);
             choices.appendChild(btn);
         });
         
     } else {
-        document.getElementById('hl-board-container').style.display = 'none';
-        document.getElementById('hl-choices-container').style.display = 'none';
         document.getElementById('letter-board-container').style.display = 'none';
         document.getElementById('question-text').style.display = 'block';
         document.getElementById('board-container').style.display = 'grid';
@@ -454,106 +794,32 @@ function setupRound() {
     }
 
     renderScores();
+    flashTeamTurn(isStealMode);
     startTimer();
-}
-
-function renderHLPair() {
-    let arr = activeQuestions[currentQIdx].a;
-    let base = arr[hlIndex];
-    let target = arr[hlIndex+1];
-    document.getElementById('hl-base-term').textContent = `"${base.text}"`;
-    document.getElementById('hl-base-vol').textContent = base.vol.toLocaleString();
-    document.getElementById('hl-target-term').textContent = `"${target.text}"`;
-    document.getElementById('hl-target-vol').textContent = "???";
-    document.getElementById('hl-target-vol').style.color = "var(--yellow)";
-    document.querySelectorAll('#hl-choices-container button').forEach(b => b.disabled = false);
-}
-
-function processHLChoice(guess) {
-    if (strikes >= 3 && !isStealMode) return;
-    document.querySelectorAll('#hl-choices-container button').forEach(b => b.disabled = true);
-    
-    let arr = activeQuestions[currentQIdx].a;
-    let base = arr[hlIndex];
-    let target = arr[hlIndex+1];
-    let isHigher = target.vol >= base.vol;
-    let isCorrect = (guess === 'higher' && isHigher) || (guess === 'lower' && !isHigher);
-    
-    let volEl = document.getElementById('hl-target-vol');
-    volEl.textContent = target.vol.toLocaleString();
-    
-    if (isCorrect) {
-        playSfx('ding'); vibrate(100);
-        volEl.style.color = "var(--green)";
-        revealedCount++; totalActualReveals++;
-        
-        if (isStealMode) {
-            teams[currentTeamIdx].score += (roundBank + 100);
-            roundBank = 0;
-            setTimeout(finishRound, 1500);
-        } else {
-            roundBank += 100; renderScores();
-            if (hlIndex === 3) {
-                teams[currentTeamIdx].score += roundBank;
-                if(currentQIdx === 4 && wagerAmount > 0) teams[currentTeamIdx].score += wagerAmount;
-                roundBank = 0; setTimeout(finishRound, 1500);
-            } else {
-                setTimeout(() => { hlIndex++; renderHLPair(); }, 1500);
-            }
-        }
-    } else {
-        playSfx('buzzer'); vibrate([50, 50, 50]);
-        volEl.style.color = "var(--red)";
-        
-        if (isStealMode) {
-            let originalTeam = (currentTeamIdx - 1 + teams.length) % teams.length;
-            teams[originalTeam].score += roundBank; roundBank = 0; setTimeout(finishRound, 1500);
-        } else {
-            strikes++;
-            document.getElementById('strikes-display').textContent = 'X '.repeat(strikes).trim();
-            if (strikes >= 3) {
-                if(currentQIdx === 4 && wagerAmount > 0 && !isStealMode) {
-                    teams[currentTeamIdx].score -= wagerAmount;
-                    if(teams[currentTeamIdx].score < 0) teams[currentTeamIdx].score = 0;
-                }
-                if (isCoop || hlIndex === 3) {
-                    roundBank = 0; setTimeout(finishRound, 1500);
-                } else {
-                    clearInterval(timerInterval);
-                    setTimeout(() => {
-                        isStealMode = true; currentTeamIdx = (currentTeamIdx + 1) % teams.length;
-                        document.getElementById('steal-banner').style.display = 'block';
-                        document.getElementById('strikes-display').textContent = ''; 
-                        startTimer(); renderScores(); hlIndex++; renderHLPair();
-                    }, 1500);
-                }
-            } else {
-                if (hlIndex === 3) {
-                    teams[currentTeamIdx].score += roundBank;
-                    if(currentQIdx === 4 && wagerAmount > 0) teams[currentTeamIdx].score += wagerAmount;
-                    roundBank = 0; setTimeout(finishRound, 1500);
-                } else {
-                    if (!isCoop) currentTeamIdx = (currentTeamIdx + 1) % teams.length;
-                    renderScores();
-                    setTimeout(() => { hlIndex++; renderHLPair(); }, 1500);
-                }
-            }
-        }
-    }
 }
 
 function updateLifelineUI() {
     let btn5050 = document.getElementById('ll-5050');
     let btnHint = document.getElementById('ll-hint');
     let btnMull = document.getElementById('ll-mulligan');
-    if(btn5050) btn5050.disabled = bank < 50;
-    if(btnHint) btnHint.disabled = bank < 100;
-    if(btnMull) btnMull.disabled = bank < 150 || strikes === 0;
+    if(btn5050) {
+        btn5050.textContent = lifelinesUsed.fiftyFifty ? '50/50 Used' : `50/50 - ${LIFELINE_COSTS.fiftyFifty} Coins`;
+        btn5050.disabled = lifelinesUsed.fiftyFifty || bank < LIFELINE_COSTS.fiftyFifty;
+    }
+    if(btnHint) {
+        btnHint.textContent = lifelinesUsed.hint ? 'Hint Used' : `Hint - ${LIFELINE_COSTS.hint} Coins`;
+        btnHint.disabled = lifelinesUsed.hint || bank < LIFELINE_COSTS.hint || selectedPack.type === 'letter_pool';
+    }
+    if(btnMull) {
+        btnMull.textContent = lifelinesUsed.mulligan ? 'Mulligan Used' : `Mulligan - ${LIFELINE_COSTS.mulligan} Coins`;
+        btnMull.disabled = lifelinesUsed.mulligan || bank < LIFELINE_COSTS.mulligan || strikes === 0;
+    }
 }
 
 function use5050() {
-    if(bank < 50) return;
-    bank -= 50; updateBankUI(); playSfx('chaching');
+    if(bank < LIFELINE_COSTS.fiftyFifty || lifelinesUsed.fiftyFifty) return;
+    lifelinesUsed.fiftyFifty = true;
+    bank -= LIFELINE_COSTS.fiftyFifty; updateBankUI(); playSfx('chaching');
     let wrongBtns = Array.from(document.querySelectorAll('.choice-btn:not(.correct):not(.wrong)')).filter(b => !currentAnswers.find(a => a.text === b.textContent));
     wrongBtns.sort(() => 0.5 - Math.random());
     let toRemove = Math.floor(wrongBtns.length / 2);
@@ -565,8 +831,9 @@ function use5050() {
 }
 
 function useFirstLetter() {
-    if(bank < 100 || selectedPack.type === 'letter_pool') return; 
-    bank -= 100; updateBankUI(); playSfx('chaching');
+    if(bank < LIFELINE_COSTS.hint || selectedPack.type === 'letter_pool' || lifelinesUsed.hint) return; 
+    lifelinesUsed.hint = true;
+    bank -= LIFELINE_COSTS.hint; updateBankUI(); playSfx('chaching');
     let unrevealed = currentAnswers.findIndex(a => !a.revealed);
     if(unrevealed !== -1) {
         let row = document.getElementById(`row-${unrevealed}`);
@@ -579,8 +846,9 @@ function useFirstLetter() {
 }
 
 function useMulligan() {
-    if(bank < 150 || strikes === 0) return;
-    bank -= 150; updateBankUI(); playSfx('chaching');
+    if(bank < LIFELINE_COSTS.mulligan || strikes === 0 || lifelinesUsed.mulligan) return;
+    lifelinesUsed.mulligan = true;
+    bank -= LIFELINE_COSTS.mulligan; updateBankUI(); playSfx('chaching');
     strikes--;
     document.getElementById('strikes-display').textContent = 'X '.repeat(strikes).trim();
     updateLifelineUI();
@@ -605,7 +873,7 @@ function renderScores() {
             pill.className = `score-pill ${statusClass}`;
             let displayScore = t.score;
             if (statusClass !== '') displayScore += ` (+${roundBank})`;
-            if (currentQIdx === 4 && i === currentTeamIdx && wagerAmount > 0 && !isStealMode) {
+            if (isFinalRound() && i === currentTeamIdx && wagerAmount > 0 && !isStealMode) {
                 displayScore += ` [W: ${wagerAmount}]`;
             }
             pill.textContent = `TEAM ${t.id}: ${displayScore}`;
@@ -635,9 +903,9 @@ function processFeudChoice(btn, choiceText) {
             roundBank = 0; finishRound();
         } else {
             roundBank += currentAnswers[matchIdx].points; renderScores();
-            if (revealedCount === 4) {
+            if (revealedCount === currentAnswers.length) {
                 teams[currentTeamIdx].score += roundBank;
-                if(currentQIdx === 4 && wagerAmount > 0) teams[currentTeamIdx].score += wagerAmount;
+                if(isFinalRound() && wagerAmount > 0) teams[currentTeamIdx].score += wagerAmount;
                 roundBank = 0; finishRound();
             }
         }
@@ -680,7 +948,7 @@ function processLetterChoice(btn, choiceText, targetRevealCount) {
             roundBank += currentAnswers[matchIdx].points; renderScores();
             if (revealedCount === targetRevealCount) {
                 teams[currentTeamIdx].score += roundBank;
-                if(currentQIdx === 4 && wagerAmount > 0) teams[currentTeamIdx].score += wagerAmount;
+                if(isFinalRound() && wagerAmount > 0) teams[currentTeamIdx].score += wagerAmount;
                 roundBank = 0; finishRound();
             }
         }
@@ -702,7 +970,7 @@ function triggerStrike() {
     updateLifelineUI();
     
     if (strikes >= 3) {
-        if(currentQIdx === 4 && wagerAmount > 0 && !isStealMode) {
+        if(isFinalRound() && wagerAmount > 0 && !isStealMode) {
             teams[currentTeamIdx].score -= wagerAmount;
             if(teams[currentTeamIdx].score < 0) teams[currentTeamIdx].score = 0;
         }
@@ -712,10 +980,7 @@ function triggerStrike() {
         } else {
             clearInterval(timerInterval);
             setTimeout(() => {
-                isStealMode = true; currentTeamIdx = (currentTeamIdx + 1) % teams.length;
-                document.getElementById('steal-banner').style.display = 'block';
-                document.getElementById('strikes-display').textContent = ''; 
-                startTimer(); renderScores();
+                beginStealTurn();
             }, 1000);
         }
     }
@@ -788,6 +1053,15 @@ function fireConfetti() {
     render();
 }
 
+function calculateCoinReward(winningScore, accuracy) {
+    const completionReward = activeQuestions.length * 30;
+    const accuracyReward = Math.round(accuracy * 150);
+    const scoreReward = Math.min(100, Math.floor(winningScore / 20));
+    const perfectReward = accuracy >= 1 ? 100 : 0;
+    const versusReward = isCoop ? 0 : 50;
+    return completionReward + accuracyReward + scoreReward + perfectReward + versusReward;
+}
+
 function showGameOver() {
     showScreen('end-screen');
     playSfx('chaching');
@@ -798,18 +1072,18 @@ function showGameOver() {
     
     let accuracy = totalActualReveals / (totalPossibleReveals || 1); 
     let title = "";
-    if(accuracy >= 0.9) title = "Search Engine Scholars 🎓";
-    else if(accuracy >= 0.7) title = "Algorithm Whisperers 🤖";
-    else if(accuracy >= 0.5) title = "Autocomplete Amateurs ⌨️";
-    else title = "Incognito Mode Rookies 🕵️";
+    if(accuracy >= 0.9) title = "Search Engine Scholars";
+    else if(accuracy >= 0.7) title = "Algorithm Whisperers";
+    else if(accuracy >= 0.5) title = "Autocomplete Amateurs";
+    else title = "Incognito Mode Rookies";
 
-    let reward = Math.floor(sortedTeams[0].score * 0.75);
+    let reward = calculateCoinReward(sortedTeams[0].score, accuracy);
     bank += reward; updateBankUI();
     document.getElementById('end-earned').textContent = `Earned ${reward} Coins!`;
 
     sortedTeams.forEach((t, i) => {
         let row = document.createElement('div'); row.className = `final-row ${i === 0 ? 'winner-row' : ''}`;
-        let teamName = isCoop ? 'Final Score' : `Team ${t.id} ${i === 0 ? '👑' : ''}`;
+        let teamName = isCoop ? 'Final Score' : `Team ${t.id}${i === 0 ? ' - Winner' : ''}`;
         row.innerHTML = `<div>${teamName}${i === 0 ? `<span class="rank-title">Rank: ${title}</span>` : ''}</div><span>${t.score}</span>`;
         standings.appendChild(row);
     });

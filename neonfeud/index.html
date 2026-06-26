@@ -5,153 +5,178 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Neon Feud - TV Edition</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#030303">
+<meta name="theme-color" content="#0A0014">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Neon Feud">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <canvas id="confetti"></canvas>
+
 <div id="portrait-lock">
-    <span>🔄</span>
-    Please Rotate<br>Your Device
+    <span>Rotate Device</span>
+    <p>Neon Feud is built for landscape play.</p>
 </div>
-<div class="moving-light"></div>
+
+<div class="screen-glow"></div>
+
 <div class="modal-overlay" id="about-modal">
     <div class="modal-content">
-        <h3>How To Play</h3>
-        <p><strong>Neon Feud</strong> is a party game based on the bizarre, unhinged search queries of the internet.</p>
-        <p><strong>Game Modes:</strong></p>
+        <h3>Rules</h3>
+        <p><strong>Feud Mode:</strong> Guess the top four autocomplete answers before strikes end the round.</p>
+        <p><strong>Letter Pool:</strong> Guess letters to reveal the hidden word. The first and last letters are shown for free.</p>
         <ul>
-            <li>🔍 <strong>Feud Mode:</strong> Guess the top 4 autocomplete results. Watch out for decoys!</li>
-            <li>🅰️ <strong>Letter Pool:</strong> A Jeopardy/Hangman hybrid. Guess the single blank word.</li>
-            <li>📈 <strong>Higher or Lower:</strong> Guess which search term gets more traffic!</li>
+            <li>Wrong answers add strikes.</li>
+            <li>Three strikes passes control to the next team.</li>
+            <li>The stealing team gets one chance to take the round bank.</li>
+            <li>The final round can include a team wager.</li>
         </ul>
-        <p><strong>The Rules:</strong></p>
-        <ul>
-            <li>Guess wrong (or hit a decoy), and you get a <strong>Strike</strong>.</li>
-            <li><strong>3 Strikes</strong> means you lose control!</li>
-            <li>🚨 <strong>The Steal:</strong> The next team gets one chance to guess a remaining answer and steal the points!</li>
-        </ul>
-        <button class="close-modal-btn" onclick="closeAbout()">Got It!</button>
+        <button class="close-modal-btn" onclick="closeAbout()">Close</button>
     </div>
 </div>
+
 <div class="modal-overlay" id="wager-modal">
-    <div class="modal-content" style="text-align: center;">
-        <h3 style="color: var(--yellow);">FINAL ROUND WAGER</h3>
-        <p id="wager-prompt">Team, how much of your bank will you wager?</p>
-        <p>Clear the board to win it. Strike out and you lose it!</p>
+    <div class="modal-content wager-content">
+        <h3>Final Round Wager</h3>
+        <p id="wager-prompt">Choose a wager.</p>
+        <p>Clear the board to add it. Strike out and lose it.</p>
         <input type="number" id="wager-input" min="0" value="0">
-        <button class="close-modal-btn" style="background: var(--yellow); color: #000;" onclick="submitWager()">Lock Wager</button>
+        <button class="close-modal-btn wager-lock-btn" onclick="submitWager()">Lock Wager</button>
     </div>
 </div>
+
 <div id="app-container">
     <div id="menu-screen" class="screen active">
         <div class="top-bar">
-            <button class="back-btn" id="mute-btn" onclick="toggleMute()">🔊 Mute</button>
-            <div class="currency-bank" id="menu-bank">💰 0 Coins</div>
+            <button class="back-btn" id="mute-btn" onclick="toggleMute()">Mute</button>
+            <div class="currency-bank" id="menu-bank">0 Coins</div>
         </div>
-        <div class="logo" style="margin-top: 5vh;"><span>Neon</span>Feud</div>
-        <h2>Search Engine Showdown</h2>
-        <div class="btn-grid">
-            <button onclick="goToPackSelect()">Play Game</button>
-            <button onclick="goToStore()">Store / Packs</button>
-            <button onclick="goToCreator()">Custom Creator</button>
-            <button class="back-btn" style="width:100%; margin-top: 1vmin; padding: 2vmin; border-radius: 2vmin; font-size: 2.5vmin; border-color: rgba(255,255,255,0.2);" onclick="openAbout()">ℹ️ How To Play</button>
+
+        <div class="menu-layout">
+            <section class="brand-panel">
+                <div class="logo"><span>Neon</span>Feud</div>
+                <h2>Search Engine Party Game</h2>
+                <p class="menu-tagline">How well do you know Google after midnight?</p>
+            </section>
+
+            <section class="command-panel">
+                <button onclick="goToPackSelect()">Play Game</button>
+                <button onclick="goToStore()">Store</button>
+                <button onclick="goToCreator()">Custom Creator</button>
+                <button class="secondary-command" onclick="openAbout()">Rules</button>
+            </section>
         </div>
     </div>
+
     <div id="store-screen" class="screen">
         <div class="top-bar">
-            <button class="back-btn" onclick="showScreen('menu-screen')">⬅ Back</button>
-            <div class="currency-bank" id="store-bank">💰 0 Coins</div>
+            <button class="back-btn" onclick="showScreen('menu-screen')">Back</button>
+            <div class="currency-bank" id="store-bank">0 Coins</div>
         </div>
-        <div class="logo"><span>Pack</span> Store</div>
+        <div class="screen-heading">
+            <div class="logo"><span>Pack</span>Store</div>
+            <h2>Unlock Feud and Letter Pool packs.</h2>
+        </div>
         <div class="store-grid" id="store-container"></div>
-        <button class="back-btn" style="background: var(--red); color: white; margin-top: 2vmin; width: 100%; text-align: center;" onclick="wipeData()">⚠️ Wipe Save Data</button>
+        <button class="danger-btn" onclick="wipeData()">Wipe Save Data</button>
     </div>
+
     <div id="creator-screen" class="screen">
         <div class="top-bar">
-            <button class="back-btn" onclick="showScreen('menu-screen')">⬅ Back</button>
+            <button class="back-btn" onclick="showScreen('menu-screen')">Back</button>
         </div>
-        <div class="logo"><span>Custom</span> Creator</div>
-        <div style="flex-grow: 1; overflow-y: auto; padding-right: 2vmin;">
+        <div class="screen-heading">
+            <div class="logo"><span>Custom</span>Creator</div>
+            <h2>Create a five-round pack.</h2>
+        </div>
+        <div class="creator-scroll">
             <input type="text" id="c-pack-name" placeholder="Pack Name" class="creator-input">
             <select id="c-pack-type" class="creator-input" onchange="buildCreatorForm()">
-                <option value="feud">Feud Mode (4 Answers)</option>
-                <option value="letter_pool">Letter Pool (1 Word)</option>
+                <option value="feud">Feud Mode - 4 Answers</option>
+                <option value="letter_pool">Letter Pool - 1 Word</option>
             </select>
+            <input type="text" id="c-pack-tags" placeholder="Tags, comma separated" class="creator-input">
+            <textarea id="c-pack-decoys" placeholder="Feud decoys, comma separated" class="creator-input creator-textarea"></textarea>
             <div id="creator-questions"></div>
             <button class="close-modal-btn" onclick="saveCustomPack()">Save Custom Pack</button>
+            <div class="creator-tools">
+                <textarea id="custom-pack-transfer" placeholder="Custom pack import/export JSON" class="creator-input creator-textarea transfer-textarea"></textarea>
+                <div class="creator-tool-actions">
+                    <button onclick="exportCustomPacks()">Export Custom Packs</button>
+                    <button onclick="importCustomPacks()">Import Custom Packs</button>
+                </div>
+            </div>
         </div>
     </div>
+
     <div id="setup-screen" class="screen">
         <div class="top-bar">
-            <button class="back-btn" onclick="showScreen('menu-screen')">⬅ Back</button>
+            <button class="back-btn" onclick="showScreen('menu-screen')">Back</button>
+            <div class="round-note">Setup</div>
         </div>
-        <div class="logo"><span>Setup</span></div>
-        <h2 id="step-1-title">1. Select Pack</h2>
-        <div class="btn-grid" id="pack-select-container" style="flex-direction: row; flex-wrap: wrap; justify-content: center; margin-bottom: 4vmin; height: 35vh; overflow-y:auto; align-content: flex-start;"></div>
-        <div id="team-selection-area" style="display: none; text-align: center; flex-grow: 1;">
-            <h3 id="selected-pack-display" style="color: var(--theme-color); margin-bottom: 2vmin; font-size: 4vmin; text-transform: uppercase;"></h3>
-            <button class="back-btn" onclick="resetPackSelection()" style="margin-bottom: 5vmin;">Change Pack</button>
-            <h2>2. Teams Mode</h2>
-            <div class="btn-grid" id="team-select-container">
-                <button onclick="startGame(1)">1 Player (Co-op)</button>
+        <div class="screen-heading">
+            <div class="logo"><span>Choose</span>Pack</div>
+            <h2 id="step-1-title">Select an unlocked pack.</h2>
+        </div>
+        <div class="pack-select-grid" id="pack-select-container"></div>
+        <div id="team-selection-area" class="team-selection-area">
+            <h3 id="selected-pack-display"></h3>
+            <button class="back-btn change-pack-btn" onclick="resetPackSelection()">Change Pack</button>
+            <div class="solo-play-panel">
+                <h2>Solo Play</h2>
+                <button onclick="startGame(1)">Single Player</button>
+            </div>
+            <h2 class="team-section-title">Team Play</h2>
+            <div class="team-grid" id="team-select-container">
                 <button onclick="startGame(2)">2 Teams</button>
                 <button onclick="startGame(3)">3 Teams</button>
                 <button onclick="startGame(4)">4 Teams</button>
             </div>
         </div>
     </div>
+
     <div id="game-screen" class="screen">
-        <div class="top-bar">
-            <button class="back-btn" onclick="quitGame()">⬅ Quit</button>
+        <div id="team-flash" aria-live="polite"></div>
+        <div class="top-bar game-top-bar">
+            <button class="back-btn" onclick="quitGame()">Quit</button>
             <div id="timer-display">60</div>
             <div id="scoreboard"></div>
             <div id="strikes-display"></div>
         </div>
-        <div id="steal-banner">🚨 STEAL OPPORTUNITY! ONE MISTAKE AND YOU'RE OUT! 🚨</div>
+        <div id="steal-banner">Steal opportunity. One mistake ends the round.</div>
         <div class="query-box" id="question-text"></div>
         <div class="board-grid" id="board-container"></div>
         <div id="letter-board-container"></div>
-        <div id="hl-board-container" style="display: none; flex-direction: column; gap: 3vmin; width: 100%; margin-bottom: 2vmin;">
-            <div class="hl-box base-box">
-                <div class="hl-term" id="hl-base-term"></div>
-                <div class="hl-vol" id="hl-base-vol"></div>
-            </div>
-            <div class="hl-vs">VS</div>
-            <div class="hl-box target-box">
-                <div class="hl-term" id="hl-target-term"></div>
-                <div class="hl-vol" id="hl-target-vol">???</div>
-            </div>
-        </div>
         <div class="choices-area" id="choices-container"></div>
-        <div class="choices-area" id="hl-choices-container" style="display: none; grid-template-columns: 1fr 1fr;">
-            <button class="choice-btn hl-btn" style="background: rgba(0,255,136,0.2); border-color: var(--green); color: var(--green);" onclick="processHLChoice('higher')">HIGHER ⬆️</button>
-            <button class="choice-btn hl-btn" style="background: rgba(255,42,95,0.2); border-color: var(--red); color: var(--red);" onclick="processHLChoice('lower')">LOWER ⬇️</button>
-        </div>
         <div class="lifeline-bar" id="lifeline-bar">
-            <button class="lifeline-btn" id="ll-5050" onclick="use5050()">50/50 (50💰)</button>
-            <button class="lifeline-btn" id="ll-hint" onclick="useFirstLetter()">Hint (100💰)</button>
-            <button class="lifeline-btn" id="ll-mulligan" onclick="useMulligan()">Mulligan (150💰)</button>
+            <button class="lifeline-btn" id="ll-5050" onclick="use5050()">50/50 - 50 Coins</button>
+            <button class="lifeline-btn" id="ll-hint" onclick="useFirstLetter()">Hint - 75 Coins</button>
+            <button class="lifeline-btn" id="ll-mulligan" onclick="useMulligan()">Mulligan - 100 Coins</button>
         </div>
-        <button class="give-up-btn" id="give-up-btn" onclick="giveUpRound()">Reveal Board (Give Up)</button>
-        <button class="give-up-btn" id="next-round-btn" style="display:none; background: var(--theme-grad); color: #fff; border:none;" onclick="nextRound()">Next Round ➔</button>
+        <button class="give-up-btn" id="give-up-btn" onclick="giveUpRound()">Reveal Board</button>
+        <button class="give-up-btn next-round-btn" id="next-round-btn" onclick="nextRound()">Next Round</button>
     </div>
+
     <div id="end-screen" class="screen">
-        <div class="logo"><span>Game</span>Over</div>
-        <h2 id="end-earned">You earned XXX Coins!</h2>
+        <div class="screen-heading end-heading">
+            <div class="logo"><span>Game</span>Over</div>
+            <h2 id="end-earned">Earned 0 Coins</h2>
+        </div>
         <div class="final-standings" id="final-standings"></div>
-        <div class="btn-grid">
+        <div class="command-panel end-actions">
             <button onclick="location.reload()">Main Menu</button>
         </div>
     </div>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>

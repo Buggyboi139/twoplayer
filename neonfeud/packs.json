@@ -6,6 +6,7 @@
     "unlockedByDefault": true,
     "type": "feud",
     "color": "#b066ff",
+    "tags": ["weird", "starter"],
     "questions":[
       { "q": "Why does my dog...", "a":["eat grass", "lick me", "stare at me", "sigh"] },
       { "q": "I accidentally ate...", "a":["mold", "raw chicken", "plastic", "a bug"] },
@@ -22,6 +23,7 @@
     "unlockedByDefault": true,
     "type": "feud",
     "color": "#ff2a5f",
+    "tags": ["health", "starter"],
     "questions":[
       { "q": "Why does my knee sound like...", "a":["bubble wrap", "cracking knuckles", "rice krispies", "velcro"] },
       { "q": "I accidentally swallowed a...", "a": ["bug", "piece of plastic", "watermelon seed", "magnet"] },
@@ -34,10 +36,11 @@
     "id": "good_boy_inquiries",
     "name": "The Good Boy Inquiries",
     "description": "Unhinged questions pet owners ask Google instead of a vet.",
-    "price": 100,
+    "price": 250,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#00ff88",
+    "tags": ["pets", "weird"],
     "questions":[
       { "q": "Why does my dog look at me like...", "a":["I owe him money", "I'm crazy", "he pities me", "he knows my secrets"] },
       { "q": "Can a dog be...", "a":["racist", "autistic", "depressed", "gay"] },
@@ -50,10 +53,11 @@
     "id": "takeout_tragedies",
     "name": "Takeout Tragedies",
     "description": "Desperate food searches from people who shouldn't be allowed in a kitchen.",
-    "price": 250,
+    "price": 350,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#ffb300",
+    "tags": ["food"],
     "questions": [
       { "q": "Can you still eat Chinese takeout if it...", "a":["was left out overnight", "is two days old", "smells sour", "was in a hot car"] },
       { "q": "How to put out a fire caused by...", "a":["grease", "oil", "a toaster", "microwave popcorn"] },
@@ -66,10 +70,11 @@
     "id": "state_secrets",
     "name": "State Secrets",
     "description": "The darkest, weirdest queries about US States and Territories.",
-    "price": 400,
+    "price": 500,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#00e5ff",
+    "tags": ["places", "weird"],
     "questions": [
       { "q": "Which state has the most felonies?", "a":["Louisiana", "Mississippi", "Arkansas", "Oklahoma"] },
       { "q": "Which state searches for 'is bestiality legal'?", "a": ["Indiana", "Louisiana", "Kentucky", "Texas"] },
@@ -86,6 +91,7 @@
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#ff0055",
+    "tags": ["tech", "games"],
     "questions": [
       { "q": "Is it illegal to hack my...", "a":["school", "spouse's phone", "ex's instagram", "wifi neighbor"] },
       { "q": "Why does my PC smell like...", "a": ["burning plastic", "fish", "ozone", "smoke"] },
@@ -98,10 +104,11 @@
     "id": "writers_watchlist",
     "name": "The Writer's Watchlist",
     "description": "Suspicious searches by people writing crime novels.",
-    "price": 600,
+    "price": 650,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#5500ff",
+    "tags": ["crime", "weird"],
     "questions":[
       { "q": "How long does it take for a body to...", "a":["decompose", "stiffen", "float", "turn to bone"] },
       { "q": "What does a dragon's breath smell like?", "a":["sulfur", "ozone", "rotten meat", "ash"] },
@@ -118,6 +125,7 @@
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#ff00aa",
+    "tags": ["relationships", "weird"],
     "questions": [
       { "q": "How to politely tell someone they...", "a":["smell bad", "have bad breath", "talk too much", "are annoying"] },
       { "q": "Is it illegal to marry a...", "a": ["first cousin", "sibling", "minor", "tree"] },
@@ -130,10 +138,11 @@
     "id": "tin_foil_hats",
     "name": "Tin Foil Hats",
     "description": "Conspiracy theories, cryptids, and the weirdest web.",
-    "price": 850,
+    "price": 900,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#00ffaa",
+    "tags": ["conspiracy", "weird"],
     "questions": [
       { "q": "Are birds actually...", "a":["real", "government drones", "dinosaurs", "spies"] },
       { "q": "How to tell if your neighbor is a...", "a": ["narc", "sociopath", "vampire", "alien"] },
@@ -146,10 +155,11 @@
     "id": "dear_google",
     "name": "Dear Google...",
     "description": "Boomer Googles & extreme tech illiteracy.",
-    "price": 400,
+    "price": 350,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#aaff00",
+    "tags": ["tech", "weird"],
     "questions":[
       { "q": "Please google where I can find a...", "a":["walmart", "wife", "toilet", "job"] },
       { "q": "How to delete a...", "a":["facebook", "nephew", "virus", "text message"] },
@@ -166,6 +176,7 @@
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#3366ff",
+    "tags": ["science", "weird"],
     "questions": [
       { "q": "What happens if the sun...", "a":["explodes", "disappears", "stops", "turns green"] },
       { "q": "Could a human survive a...", "a": ["black hole", "meteor", "microwave", "tsunami"] },
@@ -178,10 +189,11 @@
     "id": "tinder_terrors",
     "name": "Tinder Terrors",
     "description": "Red flags and dating disasters.",
-    "price": 600,
+    "price": 650,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#ff3399",
+    "tags": ["relationships"],
     "questions":[
       { "q": "Is it a red flag if my boyfriend...", "a": ["doesn't blink", "has no friends", "eats dirt", "hates dogs"] },
       { "q": "Why does my girlfriend always...", "a":["cry", "bite me", "smell my shirts", "yell"] },
@@ -198,6 +210,7 @@
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#00cc66",
+    "tags": ["money", "weird"],
     "questions":[
       { "q": "Is it legal to sell my...", "a": ["kidney", "soul", "dna", "eggs"] },
       { "q": "How to make passive income using...", "a": ["chatgpt", "toenails", "vending machines", "ai"] },
@@ -210,10 +223,11 @@
     "id": "mommy_blog_mysteries",
     "name": "Mommy Blog Mysteries",
     "description": "Panicked parents dealing with chaotic toddlers.",
-    "price": 850,
+    "price": 900,
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#ff99cc",
+    "tags": ["parenting"],
     "questions":[
       { "q": "Is it normal if my baby eats...", "a": ["sand", "dog food", "lotion", "dirt"] },
       { "q": "Why does my toddler look like...", "a":["an old man", "vladimir putin", "a thief", "my mother in law"] },
@@ -230,12 +244,81 @@
     "unlockedByDefault": false,
     "type": "feud",
     "color": "#cccccc",
+    "tags": ["work"],
     "questions": [
       { "q": "How to politely say...", "a":["no", "you're wrong", "do it yourself", "stop talking"] },
       { "q": "Is it illegal for my boss to...", "a":["yell at me", "call me at night", "watch me on camera", "fire me over text"] },
       { "q": "Can I get fired for...", "a":["crying", "sleeping", "dating a coworker", "farting"] },
       { "q": "How to fake being busy when...", "a":["working from home", "the boss walks by", "on a zoom call", "you have nothing to do"] },
       { "q": "Why is my coworker always...", "a":["coughing", "staring at me", "complaining", "eating loud"] }
+    ]
+  },
+  {
+    "id": "airport_purgatory",
+    "name": "Airport Purgatory",
+    "description": "Travel searches from delayed flights, tiny seats, and bad terminal decisions.",
+    "price": 600,
+    "unlockedByDefault": false,
+    "type": "feud",
+    "color": "#00b7ff",
+    "tags": ["travel", "weird"],
+    "questions": [
+      { "q": "Can I bring a ______ on a plane?", "a":["razor", "lighter", "snow globe", "plant"] },
+      { "q": "Why is my flight delayed because of...", "a":["weather", "maintenance", "crew", "air traffic"] },
+      { "q": "How to sleep at an airport without...", "a":["getting robbed", "missing flight", "looking homeless", "being cold"] },
+      { "q": "Is airport food supposed to be...", "a":["expensive", "bad", "cold", "tax free"] },
+      { "q": "What happens if TSA finds my...", "a":["weed", "knife", "passport", "ashes"] }
+    ]
+  },
+  {
+    "id": "homeowner_horrors",
+    "name": "Homeowner Horrors",
+    "description": "Panic searches from people who just discovered how houses work.",
+    "price": 700,
+    "unlockedByDefault": false,
+    "type": "feud",
+    "color": "#ff6b35",
+    "tags": ["home", "weird"],
+    "questions": [
+      { "q": "Why does my house smell like...", "a":["sewer", "gas", "mildew", "fish"] },
+      { "q": "Is it bad if my ceiling is...", "a":["leaking", "cracking", "sagging", "yellow"] },
+      { "q": "How to tell if a wall has...", "a":["mold", "studs", "asbestos", "termites"] },
+      { "q": "Can I fix a toilet with...", "a":["duct tape", "vinegar", "a plunger", "hot water"] },
+      { "q": "Why is my neighbor's tree...", "a":["dropping sap", "on my roof", "blocking sun", "full of bees"] }
+    ]
+  },
+  {
+    "id": "holiday_damage",
+    "name": "Holiday Damage Control",
+    "description": "Seasonal disasters, family visits, and festive regret.",
+    "price": 800,
+    "unlockedByDefault": false,
+    "type": "feud",
+    "color": "#ff1744",
+    "tags": ["family", "food", "weird"],
+    "questions": [
+      { "q": "How long can you leave a turkey...", "a":["out", "in fridge", "frozen", "in oven"] },
+      { "q": "How to politely avoid talking to...", "a":["uncle", "mother in law", "cousin", "neighbor"] },
+      { "q": "Can Christmas lights cause...", "a":["fire", "headache", "seizures", "power outage"] },
+      { "q": "What to bring to Thanksgiving if you...", "a":["can't cook", "are broke", "forgot", "hate turkey"] },
+      { "q": "How to remove wine from...", "a":["carpet", "couch", "shirt", "tablecloth"] }
+    ]
+  },
+  {
+    "id": "public_school_portal",
+    "name": "Public School Portal",
+    "description": "Homework panic, parent emails, and school-night mysteries.",
+    "price": 650,
+    "unlockedByDefault": false,
+    "type": "feud",
+    "color": "#f6d32d",
+    "tags": ["school", "parenting"],
+    "questions": [
+      { "q": "How to tell a teacher that...", "a":["dog ate homework", "we forgot", "kid is sick", "email got lost"] },
+      { "q": "Is it normal for homework to take...", "a":["three hours", "all night", "five minutes", "forever"] },
+      { "q": "What does it mean if my kid got a...", "a":["referral", "zero", "detention", "note home"] },
+      { "q": "How to make a science project with...", "a":["cardboard", "baking soda", "glue", "no time"] },
+      { "q": "Why does the school app keep...", "a":["crashing", "logging me out", "sending alerts", "showing missing work"] }
     ]
   },
   {
@@ -246,6 +329,7 @@
     "unlockedByDefault": true,
     "type": "letter_pool",
     "color": "#8800ff",
+    "tags": ["letter_pool", "writing"],
     "questions":[
       { "q": "How long does it take to naturally reclaim a lost ______?", "a": "WORLD" },
       { "q": "What is the realistic blast radius of a ______?", "a": "VOLCANO" },
@@ -258,10 +342,11 @@
     "id": "rage_quits_lp",
     "name": "Rage Quits & Roleplay",
     "description": "Intense gamer inquiries and hardware meltdowns.",
-    "price": 250,
+    "price": 300,
     "unlockedByDefault": false,
     "type": "letter_pool",
     "color": "#ff0000",
+    "tags": ["letter_pool", "games"],
     "questions":[
       { "q": "How to fix stick drift on a Nintendo ______?", "a": "SWITCH" },
       { "q": "What happens if you attack the ______ in Baldur's Gate?", "a": "DRUID" },
@@ -274,10 +359,11 @@
     "id": "canine_conundrums",
     "name": "Canine Conundrums",
     "description": "Pet owners turning to the internet for unhinged dogs.",
-    "price": 400,
+    "price": 450,
     "unlockedByDefault": false,
     "type": "letter_pool",
     "color": "#00ff00",
+    "tags": ["letter_pool", "pets"],
     "questions":[
       { "q": "Is it an emergency if my dog ate a ______?", "a": "LEGO" },
       { "q": "Why does my dog bark at the ______?", "a": "CEILING" },
@@ -290,10 +376,11 @@
     "id": "delivery_fee_regrets",
     "name": "Delivery Fee Regrets",
     "description": "Late-night food ordering mysteries and desperation.",
-    "price": 500,
+    "price": 550,
     "unlockedByDefault": false,
     "type": "letter_pool",
     "color": "#ffaa00",
+    "tags": ["letter_pool", "food"],
     "questions":[
       { "q": "How long can Asian takeout sit in the ______?", "a": "CAR" },
       { "q": "Is it rude to order just ______ on DoorDash?", "a": "SAUCE" },
@@ -303,51 +390,20 @@
     ]
   },
   {
-    "id": "hl_food_fight",
-    "name": "Higher or Lower: Food Fight",
-    "description": "Which ordinary food item gets searched more?",
-    "price": 0,
-    "unlockedByDefault": true,
-    "type": "higher_lower",
-    "color": "#ff6633",
-    "questions":[
-      { "q": "Round 1: Fast Food Showdown", "a":[ { "text": "Tacos", "vol": 3000000 }, { "text": "Burgers", "vol": 4500000 }, { "text": "Pizza", "vol": 12000000 }, { "text": "Sushi", "vol": 8000000 }, { "text": "Salad", "vol": 2000000 } ] },
-      { "q": "Round 2: Kitchen Basics", "a":[ { "text": "Boil Eggs", "vol": 1500000 }, { "text": "Boil Water", "vol": 500000 }, { "text": "Cook Rice", "vol": 2500000 }, { "text": "Chop Onion", "vol": 400000 }, { "text": "Melt Butter", "vol": 200000 } ] },
-      { "q": "Round 3: Sweet Treats", "a":[ { "text": "Ice Cream", "vol": 5000000 }, { "text": "Cake", "vol": 4000000 }, { "text": "Cookies", "vol": 3500000 }, { "text": "Pie", "vol": 1200000 }, { "text": "Brownies", "vol": 1800000 } ] },
-      { "q": "Round 4: Beverages", "a":[ { "text": "Coffee", "vol": 6000000 }, { "text": "Tea", "vol": 3000000 }, { "text": "Water", "vol": 4500000 }, { "text": "Soda", "vol": 1000000 }, { "text": "Juice", "vol": 1500000 } ] },
-      { "q": "Round 5: Fruits", "a":[ { "text": "Apples", "vol": 2500000 }, { "text": "Bananas", "vol": 3000000 }, { "text": "Oranges", "vol": 1800000 }, { "text": "Grapes", "vol": 1500000 }, { "text": "Strawberries", "vol": 2000000 } ] }
-    ]
-  },
-  {
-    "id": "hl_mundane_matters",
-    "name": "Higher or Lower: Mundane Matters",
-    "description": "Ordinary, everyday household items.",
-    "price": 200,
+    "id": "suburban_legends_lp",
+    "name": "Suburban Legends",
+    "description": "Neighborhood rumors, cul-de-sac drama, and HOA mysteries.",
+    "price": 650,
     "unlockedByDefault": false,
-    "type": "higher_lower",
-    "color": "#aaaaaa",
+    "type": "letter_pool",
+    "color": "#00d084",
+    "tags": ["letter_pool", "home", "weird"],
     "questions":[
-      { "q": "Round 1: Bathroom Basics", "a":[ { "text": "Toilet Paper", "vol": 1200000 }, { "text": "Soap", "vol": 800000 }, { "text": "Shampoo", "vol": 600000 }, { "text": "Toothpaste", "vol": 500000 }, { "text": "Plunger", "vol": 200000 } ] },
-      { "q": "Round 2: Office Supplies", "a":[ { "text": "Pens", "vol": 1500000 }, { "text": "Pencils", "vol": 1000000 }, { "text": "Paperclips", "vol": 300000 }, { "text": "Stapler", "vol": 400000 }, { "text": "Scissors", "vol": 800000 } ] },
-      { "q": "Round 3: Furniture", "a":[ { "text": "Couch", "vol": 3000000 }, { "text": "Bed", "vol": 4500000 }, { "text": "Chair", "vol": 2000000 }, { "text": "Table", "vol": 1500000 }, { "text": "Desk", "vol": 2500000 } ] },
-      { "q": "Round 4: Chores", "a":[ { "text": "Laundry", "vol": 1000000 }, { "text": "Dishes", "vol": 800000 }, { "text": "Vacuum", "vol": 1500000 }, { "text": "Mop", "vol": 1200000 }, { "text": "Dusting", "vol": 400000 } ] },
-      { "q": "Round 5: Hardware", "a":[ { "text": "Hammer", "vol": 800000 }, { "text": "Nails", "vol": 1200000 }, { "text": "Screwdriver", "vol": 600000 }, { "text": "Wrench", "vol": 500000 }, { "text": "Tape Measure", "vol": 300000 } ] }
-    ]
-  },
-  {
-    "id": "hl_weird_queries",
-    "name": "Higher or Lower: Wild Web",
-    "description": "Which weird search gets googled more?",
-    "price": 500,
-    "unlockedByDefault": false,
-    "type": "higher_lower",
-    "color": "#00e5ff",
-    "questions":[
-      { "q": "Round 1: WebMD Nightmares", "a":[ { "text": "Why does my eye twitch", "vol": 350000 }, { "text": "Why am I always tired", "vol": 800000 }, { "text": "How to stop hiccups", "vol": 1500000 }, { "text": "Why does my back hurt", "vol": 600000 }, { "text": "How to cure a hangover", "vol": 1200000 } ] },
-      { "q": "Round 2: Animal Antics", "a":[ { "text": "Why do dogs eat grass", "vol": 500000 }, { "text": "Why do cats purr", "vol": 400000 }, { "text": "Can dogs eat grapes", "vol": 1500000 }, { "text": "Do fish sleep", "vol": 200000 }, { "text": "How long do turtles live", "vol": 150000 } ] },
-      { "q": "Round 3: Conspiracy Check", "a":[ { "text": "Flat Earth", "vol": 1200000 }, { "text": "Illuminati", "vol": 800000 }, { "text": "Area 51", "vol": 1500000 }, { "text": "Bigfoot", "vol": 2000000 }, { "text": "Loch Ness Monster", "vol": 600000 } ] },
-      { "q": "Round 4: Questionable Legality", "a":[ { "text": "How to fake a drug test", "vol": 300000 }, { "text": "Is it illegal to drive barefoot", "vol": 500000 }, { "text": "How to get away with murder", "vol": 150000 }, { "text": "Can I own a monkey", "vol": 250000 }, { "text": "Is it illegal to collect rain", "vol": 400000 } ] },
-      { "q": "Round 5: Relationship Woes", "a":[ { "text": "How to tell if he likes me", "vol": 1500000 }, { "text": "Why is she ignoring me", "vol": 800000 }, { "text": "How to text your crush", "vol": 1200000 }, { "text": "Is he cheating", "vol": 600000 }, { "text": "How to break up", "vol": 900000 } ] }
+      { "q": "Why is there a strange van near the ______?", "a": "MAILBOX" },
+      { "q": "Can an HOA ban a backyard ______?", "a": "TRAMPOLINE" },
+      { "q": "Who keeps leaving notes on my ______?", "a": "WINDSHIELD" },
+      { "q": "How loud can a neighbor's ______ legally be?", "a": "GENERATOR" },
+      { "q": "Why are there tiny flags in my ______?", "a": "LAWN" }
     ]
   }
 ]

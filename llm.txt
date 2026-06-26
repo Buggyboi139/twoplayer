@@ -1,35 +1,87 @@
 # two-player.app
 
-> A premium, mobile-to-TV gaming ecosystem designed for couples to play high-stakes, interactive games together. The platform serves as a central hub for polished, web-based gaming experiences optimized for casting from mobile devices to a TV.
+Static web hub for quick family and two-player party games. The intended use is simple: open a game from a phone, cast or mirror it to a TV, and play with minimal setup.
 
-## 🎯 Quick Start / Core Entrypoints
-- Primary Entrypoint: `index.html` - The central landing page and game hub.
-- Game Entrypoints: 
-    - `dirty_guesser_web/index.html` - The entrypoint for "Dirty Guesser", a game of deduction and deception.
-    - `neonfeud/index.html` - The entrypoint for "Neon Feud", the gold standard for design and interactivity.
-- Development Command: `n/a` (Static site; use a local live server like `npx serve` or VS Code Live Server)
-- Production/Build Command: `n/a` (Deployed via GitHub Pages)
+Neon Feud is the current quality bar. Dirty Guesser is an early prototype and should not be treated as the target standard.
 
-## 🏗️ Core Architecture & Directory Map
-- `[root/]` - Contains the main landing page (`index.html`), global styles (`landing.css`), and game modules.
-- `[dirty_guesser_web/]` - Dedicated module for the Dirty Guesser game.
-    - `dirty_guesser_web/js/` - Game logic for Dirty Guesser.
-    - `dirty_guesser_web/css/` - Game-specific styles.
-    - `dirty_guesser_web/data/` - Scenario data (`scenarios.json`).
-    - `dirty_guesser_web/audio/` - Game-specific sound effects.
-- `[neonfeud/]` - Dedicated module for the Neon Feud game (The Gold Standard).
-    - `neonfeud/js/` - Game logic (`script.js`).
-    - `neonfeud/css/` - Game-specific styles (`styles.css`).
-    - `neonfeud/audio/` - Game-specific sound effects.
-- Configuration Files: Located in `neonfeud/manifest.json` and `neonfeud/packs.json`.
+## Entrypoints
 
-## 🛠️ Tech Stack & Key Dependencies
-- Language/Runtime: `HTML5`, `CSS3`, `Vanilla JavaScript`
-- Primary Frameworks: None (High-performance vanilla implementation)
-- Deployment: `GitHub Pages`
+- `index.html` - Main game hub.
+- `landing.css` - Styles for the hub.
+- `neonfeud/index.html` - Neon Feud game entrypoint.
+- `dirty_guesser_web/index.html` - Dirty Guesser game entrypoint.
 
-## ⚠️ Anti-Patterns, Constraints & Guardrails
-- **AESTHETIC STANDARD:** All new game modules or UI elements must match the high-end, polished "Neon Feud" aesthetic. Do not settle for basic or "placeholder" looking components.
-- **UX CONSTRAINT:** Design must prioritize mobile-first interaction (for the controller/phone) with TV-optimized visual output (for the display).
-- **CODE STYLE:** Maintain strict modularity; keep game logic isolated within its respective directory. Avoid global namespace pollution.
-- **LOCAL PERFORMANCE DIRECTIVE:** When providing code updates, do not use placeholders like `// ... rest of code`. Provide complete, functional blocks to ensure seamless integration into the existing gaming ecosystem.
+There is no build step, package manager, or framework. This repo is plain HTML, CSS, JavaScript, JSON, and static assets. Use a local static server for development when testing `fetch()` calls, service workers, or audio behavior.
+
+## Current Structure
+
+- `neonfeud/`
+  - `index.html` - Game UI and screens.
+  - `styles.css` - Neon/TV-first visual system.
+  - `script.js` - Game logic, state, scoring, timers, teams, store, custom packs, audio, and persistence.
+  - `packs.json` - Built-in question packs.
+  - `manifest.json` - PWA metadata.
+  - `sw.js` - Service worker/cache setup.
+  - `audio/` - Shared sound effects for game feedback.
+
+- `dirty_guesser_web/`
+  - `index.html` - Prototype game UI.
+  - `css/styles.css` - Prototype styles.
+  - `js/game.js` - Prototype game logic.
+  - `data/scenarios.json` - Guessing prompts and answers.
+  - `audio/` - Sound effects.
+
+- Root files
+  - `README.md` - Minimal project note.
+  - `CNAME` - GitHub Pages custom domain config.
+  - `llm.txt` - This guide for future coding agents.
+
+## Product Direction
+
+The site should feel like a small arcade of instant-play games for families, couples, and two-player couch competition. Prioritize:
+
+- One-click launch from the hub.
+- TV-readable layouts with large type, strong contrast, and clear game state.
+- Phone-friendly controls and touch targets.
+- Fast rounds, low explanation overhead, and visible scoring.
+- Local static deployment with no required backend.
+
+## Design Standard
+
+Use Neon Feud as the design and interaction reference:
+
+- Full-screen, high-contrast, landscape-friendly game surfaces.
+- Big buttons, clear state changes, timers, scoreboards, rounds, and celebratory feedback.
+- Strong visual identity per game without making the hub feel inconsistent.
+- Audio/vibration feedback where useful, with a mute path.
+
+Dirty Guesser needs a redesign before it represents the platform. Do not copy its small centered-card layout for new games unless the game specifically needs a compact phone-only experience.
+
+## Game Module Convention
+
+Keep each game self-contained in its own directory. A typical game should include:
+
+- `index.html`
+- game-specific CSS
+- game-specific JavaScript
+- JSON data if the game is content-driven
+- local audio/assets used by that game
+
+Avoid cross-game coupling unless a shared asset or helper is deliberately introduced. If shared code appears, keep it small and stable.
+
+## Engineering Notes
+
+- Use vanilla JavaScript unless a real need for a dependency emerges.
+- Keep game state understandable and local to the game module.
+- Prefer structured JSON for game content.
+- Avoid placeholder code, placeholder copy, or half-wired controls.
+- Preserve static hosting compatibility with GitHub Pages.
+- Be careful with service workers and cache names when changing game assets.
+- Test through a local static server, not only by opening files directly, because `fetch()` and service workers can behave differently.
+
+## Known Cleanup Opportunities
+
+- Update the landing page copy so Neon Feud is described as a search/autocomplete party game, not combat.
+- Fix or add missing Neon Feud PWA icon assets referenced by `manifest.json` and `sw.js`.
+- Decide whether Dirty Guesser should become a true two-player/TV game or remain a prototype.
+- Consider a lightweight shared game-card schema for the hub as more games are added.

@@ -186,6 +186,30 @@ button:disabled {
     animation: screenIn 260ms ease-out;
 }
 
+#game-screen {
+    overflow: hidden;
+}
+
+#game-screen.active {
+    display: grid;
+    grid-template-rows: auto auto auto auto auto minmax(0, 1fr) auto auto;
+    row-gap: 1.2vmin;
+}
+
+#game-screen .game-top-bar,
+#game-screen #steal-banner,
+#game-screen .query-box,
+#game-screen .board-grid,
+#game-screen .lifeline-bar,
+#game-screen .give-up-btn {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#game-screen .choices-area {
+    min-height: 0;
+}
+
 @keyframes screenIn {
     from { opacity: 0; transform: scale(0.985); }
     to { opacity: 1; transform: scale(1); }
@@ -207,6 +231,40 @@ button:disabled {
     padding: 1.1vmin 1.7vmin;
     font-size: clamp(0.78rem, 1.5vmin, 1rem);
     box-shadow: none;
+}
+
+.game-switcher {
+    justify-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8vmin;
+}
+
+.game-switcher a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: max(34px, 4.2vmin);
+    padding: 0.8vmin 1.2vmin;
+    color: var(--cyan);
+    border: 1px solid rgba(0, 255, 255, 0.28);
+    background: rgba(0, 0, 0, 0.42);
+    font-family: var(--font-display);
+    font-size: clamp(0.68rem, 1.25vmin, 0.9rem);
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.game-switcher a:hover,
+.game-switcher a:focus-visible {
+    color: var(--text-main);
+    border-color: var(--magenta);
+    background: rgba(255, 0, 110, 0.18);
+    outline: none;
 }
 
 .currency-bank,
@@ -766,7 +824,7 @@ h2 {
     gap: 1.2vmin;
     padding: 1.4vmin;
     min-height: 20vmin;
-    flex: 1;
+    overflow-y: auto;
     align-content: start;
     background: rgba(0, 0, 0, 0.52);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -990,6 +1048,16 @@ h2 {
     .top-bar {
         margin-bottom: 1.2vmin;
         padding: 1vmin;
+    }
+
+    .game-switcher {
+        gap: 6px;
+    }
+
+    .game-switcher a {
+        min-height: 34px;
+        padding: 7px 9px;
+        font-size: clamp(0.62rem, 2vmin, 0.78rem);
     }
 
     button {

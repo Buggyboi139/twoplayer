@@ -1,9 +1,3 @@
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(err => {});
-  });
-}
-
 const sfx = {
     click: new Audio('audio/click.mp3'),
     ding: new Audio('audio/ding.mp3'),
@@ -244,6 +238,11 @@ function normalizeChoice(value) {
 function getQuestionAnswers(question) {
     if (!question) return [];
     return Array.isArray(question.a) ? question.a : [question.a];
+}
+
+function formatQuestionText(question) {
+    const text = String(question || '').trim();
+    return text.endsWith('?') || text.endsWith('...') ? text : `${text}...`;
 }
 
 function getAllAnswerSet() {
@@ -696,7 +695,7 @@ function getFeudDistractors(currentQuestion, pack) {
 
 function setupRound() {
     let qData = activeQuestions[currentQIdx];
-    document.getElementById('question-text').textContent = qData.q + (qData.q.endsWith('?') ? "" : "...");
+    document.getElementById('question-text').textContent = formatQuestionText(qData.q);
     document.getElementById('strikes-display').textContent = '';
     document.getElementById('next-round-btn').style.display = 'none';
     document.getElementById('give-up-btn').style.display = 'block';

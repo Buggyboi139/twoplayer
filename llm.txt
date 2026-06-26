@@ -1,14 +1,17 @@
 # two-player.app
 
-Static web hub for quick family and two-player party games. The intended use is simple: open a game from a phone, cast or mirror it to a TV, and play with minimal setup.
+Static web hub and root PWA for quick family and two-player party games. The intended use is simple: install or open `two-player.app`, choose a game from the hub, cast or mirror to a TV when useful, and switch between games with minimal setup.
 
-Neon Feud is the current quality bar. Dirty Guesser is an early prototype and should not be treated as the target standard.
+Neon Feud and Neon Pantry Panic are the current quality bar. Dirty Guesser is playable and covered by the unified PWA, but it is still visually closer to a prototype than the target TV-first standard.
 
 ## Entrypoints
 
 - `index.html` - Main game hub.
 - `landing.css` - Styles for the hub.
+- `manifest.json` - Root PWA metadata for the whole `two-player.app` domain app.
+- `sw.js` - Root service worker for the hub and all games.
 - `neonfeud/index.html` - Neon Feud game entrypoint.
+- `neonpantry_panic/index.html` - Neon Pantry Panic game entrypoint.
 - `dirty_guesser_web/index.html` - Dirty Guesser game entrypoint.
 
 There is no build step, package manager, or framework. This repo is plain HTML, CSS, JavaScript, JSON, and static assets. Use a local static server for development when testing `fetch()` calls, service workers, or audio behavior.
@@ -20,20 +23,32 @@ There is no build step, package manager, or framework. This repo is plain HTML, 
   - `styles.css` - Neon/TV-first visual system.
   - `script.js` - Game logic, state, scoring, timers, teams, store, custom packs, audio, and persistence.
   - `packs.json` - Built-in question packs.
-  - `manifest.json` - PWA metadata.
-  - `sw.js` - Service worker/cache setup.
+  - `manifest.json` - Legacy per-game PWA metadata; pages now point at root `../manifest.json`.
+  - `sw.js` - Legacy migration stub that clears old Neon Feud caches and unregisters itself.
   - `audio/` - Shared sound effects for game feedback.
+
+- `neonpantry_panic/`
+  - `index.html` - Game UI and screens.
+  - `style.css` - Neon Pantry visual system.
+  - `game.js` - Game logic, state, scoring, timer, teams, tools, stations, audio, particles, and persistence.
+  - `manifest.json` - Legacy per-game PWA metadata; pages now point at root `../manifest.json`.
+  - `sw.js` - Legacy migration stub that clears old Pantry caches and unregisters itself.
+  - `icon-192.png`, `icon-512.png` - PWA/icon assets.
 
 - `dirty_guesser_web/`
   - `index.html` - Prototype game UI.
   - `css/styles.css` - Prototype styles.
   - `js/game.js` - Prototype game logic.
   - `data/scenarios.json` - Guessing prompts and answers.
+  - `manifest.json` - Legacy per-game PWA metadata; pages now point at root `../manifest.json`.
+  - `sw.js` - Legacy migration stub that clears old Dirty Guesser caches and unregisters itself.
   - `audio/` - Sound effects.
 
 - Root files
   - `README.md` - Minimal project note.
   - `CNAME` - GitHub Pages custom domain config.
+  - `manifest.json` - Active install manifest for the full app.
+  - `sw.js` - Active domain-level service worker. Caches the hub plus all current game assets.
   - `llm.txt` - This guide for future coding agents.
 
 ## Product Direction
@@ -41,6 +56,8 @@ There is no build step, package manager, or framework. This repo is plain HTML, 
 The site should feel like a small arcade of instant-play games for families, couples, and two-player couch competition. Prioritize:
 
 - One-click launch from the hub.
+- A single installable root PWA for all games.
+- Easy switching between games from every game screen via an `All Games` link and direct links to the other games.
 - TV-readable layouts with large type, strong contrast, and clear game state.
 - Phone-friendly controls and touch targets.
 - Fast rounds, low explanation overhead, and visible scoring.
@@ -48,12 +65,13 @@ The site should feel like a small arcade of instant-play games for families, cou
 
 ## Design Standard
 
-Use Neon Feud as the design and interaction reference:
+Use Neon Feud and Neon Pantry Panic as the design and interaction reference:
 
 - Full-screen, high-contrast, landscape-friendly game surfaces.
 - Big buttons, clear state changes, timers, scoreboards, rounds, and celebratory feedback.
 - Strong visual identity per game without making the hub feel inconsistent.
 - Audio/vibration feedback where useful, with a mute path.
+- Compact cross-game navigation that does not compete with the main game controls.
 
 Dirty Guesser needs a redesign before it represents the platform. Do not copy its small centered-card layout for new games unless the game specifically needs a compact phone-only experience.
 
@@ -76,12 +94,22 @@ Avoid cross-game coupling unless a shared asset or helper is deliberately introd
 - Prefer structured JSON for game content.
 - Avoid placeholder code, placeholder copy, or half-wired controls.
 - Preserve static hosting compatibility with GitHub Pages.
-- Be careful with service workers and cache names when changing game assets.
+- The root `sw.js` is the active service worker. It uses network-first handling for same-origin assets with cache fallback, so changed scripts and styles should update without getting stuck behind stale cache.
+- The per-game `sw.js` files are migration stubs only. Do not reintroduce independent cache-first per-game service workers unless the PWA architecture is deliberately changed.
+- When changing cached assets, bump the root `CACHE_NAME` in `sw.js`.
 - Test through a local static server, not only by opening files directly, because `fetch()` and service workers can behave differently.
+- Existing users may need one hard reload or service-worker unregister after major PWA migrations.
+
+## Recent Validation
+
+- Neon Feud was tested in headless Chrome through Play Game, pack selection, solo start, round render, board render, choices render, and lifeline/reveal layout. No runtime exceptions were found. A duplicate ellipsis bug in question prompts was fixed with `formatQuestionText()`.
+- Dirty Guesser was tested in headless Chrome through start, dirty hint, wrong guess, correct guess, next round, and a full 30-scenario run to the end screen. No runtime bug was found.
+- Neon Pantry Panic was tested in headless Chrome through Solo Run, station selection, round intro, Open Pantry, all three tools, wrong pick with Safety Plate, correct picks, recipe reveal, and a full six-round Desserts victory. No runtime bug was found.
+- Root PWA assets and HTML references were checked against the local static server.
 
 ## Known Cleanup Opportunities
 
-- Update the landing page copy so Neon Feud is described as a search/autocomplete party game, not combat.
-- Fix or add missing Neon Feud PWA icon assets referenced by `manifest.json` and `sw.js`.
 - Decide whether Dirty Guesser should become a true two-player/TV game or remain a prototype.
 - Consider a lightweight shared game-card schema for the hub as more games are added.
+- Consider replacing the root PWA icon source with a dedicated `two-player.app` icon instead of reusing Dirty Guesser icons.
+- Consider deleting legacy per-game manifests once old deployment/install paths no longer need them.

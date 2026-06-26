@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Dirty Guesser</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f172a">
-    <meta name="application-name" content="Dirty Guesser">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#050505">
+    <meta name="application-name" content="two-player.app">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Dirty Guesser">
+    <meta name="apple-mobile-web-app-title" content="two-player.app">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
@@ -24,6 +24,11 @@
     <div id="game-container">
         <header>
             <h1>Dirty Guesser</h1>
+            <nav class="game-switcher" aria-label="Switch games">
+                <a href="../index.html">All Games</a>
+                <a href="../neonfeud/index.html">Neon Feud</a>
+                <a href="../neonpantry_panic/index.html">Pantry Panic</a>
+            </nav>
             <div id="score-board">Score: <span id="score">0</span></div>
         </header>
 
@@ -59,7 +64,11 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').catch(() => {});
+                navigator.serviceWorker.getRegistrations()
+                    .then(registrations => Promise.all(registrations.map(registration => {
+                        return registration.scope.endsWith('/dirty_guesser_web/') ? registration.unregister() : Promise.resolve();
+                    })))
+                    .finally(() => navigator.serviceWorker.register('../sw.js', { scope: '../' }).catch(() => {}));
             });
         }
     </script>

@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Neon Feud - TV Edition</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0A0014">
-<meta name="application-name" content="Neon Feud">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#050505">
+<meta name="application-name" content="two-player.app">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Neon Feud">
+<meta name="apple-mobile-web-app-title" content="two-player.app">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
@@ -58,6 +58,11 @@
     <div id="menu-screen" class="screen active">
         <div class="top-bar">
             <button class="back-btn" id="mute-btn" onclick="toggleMute()">Mute</button>
+            <nav class="game-switcher" aria-label="Switch games">
+                <a href="../index.html">All Games</a>
+                <a href="../dirty_guesser_web/index.html">Dirty Guesser</a>
+                <a href="../neonpantry_panic/index.html">Pantry Panic</a>
+            </nav>
             <div class="currency-bank" id="menu-bank">0 Coins</div>
         </div>
 
@@ -179,5 +184,16 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.getRegistrations()
+            .then(registrations => Promise.all(registrations.map(registration => {
+                return registration.scope.endsWith('/neonfeud/') ? registration.unregister() : Promise.resolve();
+            })))
+            .finally(() => navigator.serviceWorker.register('../sw.js', { scope: '../' }).catch(() => {}));
+    });
+}
+</script>
 </body>
 </html>

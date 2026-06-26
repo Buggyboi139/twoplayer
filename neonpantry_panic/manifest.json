@@ -1,6 +1,6 @@
 {
-  "name": "Neon Feud - TV Edition",
-  "short_name": "Neon Feud",
+  "name": "Neon Pantry Panic",
+  "short_name": "Pantry Panic",
   "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
@@ -8,7 +8,7 @@
   "orientation": "landscape",
   "background_color": "#0A0014",
   "theme_color": "#0A0014",
-  "icons":[
+  "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",

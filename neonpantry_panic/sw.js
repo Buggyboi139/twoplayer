@@ -1,14 +1,9 @@
-const CACHE_NAME = 'neon-feud-v18';
-const ASSETS_TO_CACHE =[
+const CACHE_NAME = 'neon-pantry-panic-v1';
+const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './styles.css',
-  './script.js',
-  './packs.json',
-  './audio/click.mp3',
-  './audio/ding.mp3',
-  './audio/buzzer.mp3',
-  './audio/chaching.mp3',
+  './style.css',
+  './game.js',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
@@ -17,9 +12,7 @@ const ASSETS_TO_CACHE =[
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
+      .then(cache => cache.addAll(ASSETS_TO_CACHE))
       .then(() => self.skipWaiting())
   );
 });
@@ -45,6 +38,7 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
+
         return fetch(event.request)
           .then(networkResponse => {
             const copy = networkResponse.clone();

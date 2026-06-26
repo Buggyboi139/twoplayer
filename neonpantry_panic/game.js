@@ -670,9 +670,9 @@ function updateTools() {
     const freeze = document.getElementById("tool-freeze");
     const toss = document.getElementById("tool-toss");
     const shield = document.getElementById("tool-shield");
-    freeze.textContent = `Freeze +10 (${state.tools.freeze})`;
-    toss.textContent = `Toss Decoys (${state.tools.toss})`;
-    shield.textContent = state.shieldActive ? "Safety Active" : `Safety Plate (${state.tools.shield})`;
+    freeze.textContent = `Freeze (${state.tools.freeze})`;
+    toss.textContent = `Toss (${state.tools.toss})`;
+    shield.textContent = state.shieldActive ? "Active" : `Plate (${state.tools.shield})`;
     freeze.disabled = !state.accepting || state.tools.freeze <= 0;
     toss.disabled = !state.accepting || state.tools.toss <= 0 || els.ingredientGrid.querySelectorAll(".ingredient-card:not(:disabled)").length < 6;
     shield.disabled = !state.accepting || state.tools.shield <= 0 || state.shieldActive;

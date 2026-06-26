@@ -1,14 +1,14 @@
 {
-  "name": "Neon Feud - TV Edition",
-  "short_name": "Neon Feud",
+  "name": "Dirty Guesser",
+  "short_name": "Dirty Guesser",
   "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
   "display_override": ["fullscreen", "standalone"],
   "orientation": "landscape",
-  "background_color": "#0A0014",
-  "theme_color": "#0A0014",
-  "icons":[
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",

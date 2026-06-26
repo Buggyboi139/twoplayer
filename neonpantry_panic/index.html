@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Neon Pantry Panic</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0A0014">
+<meta name="application-name" content="Neon Pantry Panic">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pantry Panic">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -74,9 +84,9 @@
             <div id="timer">45</div>
         </div>
         <div class="tool-bar" id="tool-bar">
-            <button id="tool-freeze" class="tool-btn">Freeze +10</button>
-            <button id="tool-toss" class="tool-btn">Toss Decoys</button>
-            <button id="tool-shield" class="tool-btn">Safety Plate</button>
+            <button id="tool-freeze" class="tool-btn">Freeze</button>
+            <button id="tool-toss" class="tool-btn">Toss</button>
+            <button id="tool-shield" class="tool-btn">Plate</button>
         </div>
         <div class="dish-board">
             <div>
@@ -130,5 +140,12 @@
 </main>
 
 <script src="game.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+}
+</script>
 </body>
 </html>

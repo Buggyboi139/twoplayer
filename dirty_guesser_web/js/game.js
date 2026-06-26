@@ -205,9 +205,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         
     } catch (error) {
         console.error("Failed to load game data:", error);
-        document.body.innerHTML = `<div style="text-align:center; padding: 2rem;">
-            <h1 style="color: white;">Error Loading Game</h1>
-            <p style="color: #94a3b8;">${error.message}</p>
-        </div>`;
+        const container = document.getElementById('game-container');
+        if (container) {
+            container.innerHTML = `<div class="load-error">
+                <h1>Error Loading Game</h1>
+                <p>${error.message}</p>
+            </div>`;
+        }
     }
 });

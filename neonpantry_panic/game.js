@@ -18,6 +18,162 @@ const MODIFIERS = [
     { id: "late", name: "Late Ticket", description: "Start with extra time, but the time bonus is smaller.", time: 10, timeBonusMultiplier: 0.5 }
 ];
 
+const MEASUREMENTS = {
+    flour: "2 Cups",
+    butter: "1 Stick",
+    "brown sugar": "1 Cup",
+    sugar: "1 Cup",
+    egg: "1",
+    eggs: "2",
+    "chocolate chips": "1 Cup",
+    "lemon juice": "3 Tbsp",
+    banana: "1",
+    apples: "4",
+    cinnamon: "1 Tsp",
+    "cocoa powder": "1/2 Cup",
+    "cream cheese": "16 Oz",
+    "graham crackers": "10",
+    "sour cream": "1/2 Cup",
+    spaghetti: "12 Oz",
+    tomatoes: "2 Cups",
+    garlic: "3 Cloves",
+    "olive oil": "2 Tbsp",
+    basil: "1/4 Cup",
+    chicken: "2 Cups",
+    tortillas: "6",
+    salsa: "1/2 Cup",
+    cheddar: "1 Cup",
+    lettuce: "2 Cups",
+    "ground beef": "1 Lb",
+    beans: "2 Cups",
+    "chili powder": "2 Tbsp",
+    onion: "1",
+    "pizza dough": "1 Ball",
+    "tomato sauce": "1 Cup",
+    mozzarella: "8 Oz",
+    rice: "2 Cups",
+    "soy sauce": "2 Tbsp",
+    peas: "1/2 Cup",
+    carrots: "1/2 Cup",
+    macaroni: "12 Oz",
+    milk: "1 Cup",
+    "baking powder": "2 Tsp",
+    tortilla: "1",
+    potatoes: "3",
+    bread: "2 Slices",
+    "maple syrup": "1/4 Cup",
+    "bell pepper": "1/2 Cup",
+    ham: "4 Oz",
+    avocado: "1",
+    "red pepper flakes": "1 Tsp",
+    biscuits: "6",
+    sausage: "8 Oz",
+    "black pepper": "1 Tsp",
+    "tortilla chips": "3 Cups",
+    jalapenos: "1/4 Cup",
+    "sour cream": "1/2 Cup",
+    "lime juice": "2 Tbsp",
+    cilantro: "1/4 Cup",
+    salt: "1 Tsp",
+    "popcorn kernels": "1/2 Cup",
+    yeast: "2 Tsp",
+    water: "1 Cup",
+    "baking soda": "1 Tbsp",
+    bacon: "6 Slices",
+    "green onion": "1/4 Cup",
+    peanuts: "1 Cup",
+    raisins: "1/2 Cup",
+    almonds: "1/2 Cup",
+    "chocolate candy": "1/2 Cup",
+    ice: "1 Cup",
+    "whipped cream": "1 Cup",
+    strawberries: "1 Cup",
+    yogurt: "1/2 Cup",
+    honey: "2 Tbsp",
+    coffee: "1 Cup",
+    "orange juice": "1 Cup",
+    "pineapple juice": "1 Cup",
+    "cranberry juice": "1 Cup",
+    lime: "1",
+    "soda water": "1 Cup",
+    "vanilla ice cream": "2 Scoops",
+    "chocolate syrup": "2 Tbsp",
+    "cream soup": "1 Can",
+    "egg noodles": "12 Oz",
+    breadcrumbs: "1 Cup",
+    "refried beans": "1 Cup",
+    guacamole: "1 Cup",
+    olives: "1/3 Cup",
+    marshmallows: "2 Cups",
+    "mandarin oranges": "1 Cup",
+    pineapple: "1 Cup",
+    coconut: "1/2 Cup",
+    mayonnaise: "1/2 Cup",
+    mustard: "2 Tbsp",
+    paprika: "1 Tsp",
+    relish: "2 Tbsp",
+    gelatin: "1 Box",
+    "fruit cocktail": "1 Can",
+    "whipped topping": "1 Cup",
+    walnuts: "1/2 Cup",
+    turkey: "4 Oz",
+    cabbage: "2 Cups",
+    salami: "4 Oz",
+    dill: "1 Tbsp",
+    "rice noodles": "8 Oz",
+    "tomato paste": "2 Tbsp",
+    tuna: "1 Can",
+    pickles: "1/2 Cup",
+    "bbq sauce": "1/2 Cup",
+    mushrooms: "1 Cup",
+    spinach: "2 Cups",
+    ketchup: "2 Tbsp",
+    "black beans": "1 Cup",
+    parmesan: "1/2 Cup",
+    "hot sauce": "1 Tbsp",
+    ramen: "1 Pack",
+    "cream soda": "1 Cup",
+    grapes: "1 Cup",
+    "peanut butter": "1/2 Cup",
+    marshmallows: "2 Cups",
+    cereal: "2 Cups",
+    oats: "1 Cup",
+    blueberries: "1 Cup",
+    jam: "1/2 Cup",
+    cucumber: "1 Cup",
+    granola: "1 Cup",
+    mint: "1/4 Cup",
+    "pineapple rings": "4",
+    frosting: "1/2 Cup",
+    "trail mix": "1 Cup",
+    gelatin: "1 Box",
+    eggnog: "1 Cup",
+    pudding: "1 Cup",
+    raisins: "1/2 Cup",
+    bagels: "2",
+    cashews: "1/2 Cup",
+    salmon: "6 Oz",
+    "black olives": "1/3 Cup",
+    pepperoni: "4 Oz",
+    "pickle juice": "2 Tbsp",
+    "cake mix": "1 Box",
+    caramel: "2 Tbsp",
+    avocado: "1",
+    "mustard greens": "2 Cups",
+    pesto: "1/2 Cup",
+    pretzels: "2 Cups",
+    sprinkles: "1/4 Cup",
+    "beef jerky": "4 Oz",
+    "nacho cheese": "1/2 Cup",
+    "candy corn": "1/2 Cup",
+    hummus: "1/2 Cup",
+    wasabi: "1 Tsp",
+    peaches: "1 Cup",
+    cherry: "1",
+    celery: "1 Stalk",
+    olives: "1/3 Cup"
+};
+
 const DISHES = [
     dish("desserts", "Chocolate Chip Cookies", "Easy", ["Flour", "Butter", "Brown Sugar", "Chocolate Chips", "Egg"], ["Tomato Paste", "Tuna", "Pickles", "Soy Sauce", "Rice", "Garlic", "Mustard"], ["That cookie just became a side quest.", "Chef Byte detected sandwich energy."]),
     dish("desserts", "Lemon Bars", "Medium", ["Lemon Juice", "Eggs", "Sugar", "Butter", "Flour"], ["Bacon", "Spinach", "Ketchup", "Black Beans", "Parmesan", "Potatoes", "Hot Sauce"], ["The lemon bars are now legally nachos.", "That was tart in the wrong direction."]),
@@ -336,7 +492,8 @@ function renderGame() {
         const btn = document.createElement("button");
         btn.className = "ingredient-card";
         btn.dataset.ingredient = ingredient;
-        btn.innerHTML = `<span>${index + 1}</span><strong>${ingredient}</strong>`;
+        btn.innerHTML = `<span class="measurement">${getMeasurement(ingredient)}</span><strong>${ingredient}</strong><small>${index + 1}</small>`;
+        btn.setAttribute("aria-label", `${ingredient}, ${getMeasurement(ingredient)}, shortcut ${index + 1}`);
         btn.addEventListener("click", () => selectIngredient(ingredient, btn));
         els.ingredientGrid.appendChild(btn);
     });
@@ -720,6 +877,28 @@ function shuffle(list) {
 
 function random(list) {
     return list[Math.floor(Math.random() * list.length)];
+}
+
+function getMeasurement(ingredient) {
+    const key = normalizeIngredient(ingredient);
+    if (MEASUREMENTS[key]) return MEASUREMENTS[key];
+    if (key.includes("sauce") || key.includes("dressing") || key.includes("aioli")) return "1/2 Cup";
+    if (key.includes("juice") || key.includes("soda") || key.includes("water") || key.includes("milk")) return "1 Cup";
+    if (key.includes("powder") || key.includes("seasoning") || key.includes("rub")) return "1 Tbsp";
+    if (key.includes("dill") || key.includes("mint") || key.includes("cilantro") || key.includes("basil")) return "1/4 Cup";
+    if (key.includes("chips") || key.includes("crackers") || key.includes("cereal")) return "2 Cups";
+    if (key.includes("cheese") || key.includes("cream")) return "4 Oz";
+    if (key.includes("beef") || key.includes("chicken") || key.includes("turkey") || key.includes("ham") || key.includes("sausage") || key.includes("salami") || key.includes("shrimp") || key.includes("fish")) return "8 Oz";
+    if (key.includes("noodles") || key.includes("pasta") || key.includes("macaroni") || key.includes("spaghetti")) return "8 Oz";
+    if (key.includes("beans") || key.includes("rice")) return "1 Cup";
+    if (key.includes("candy") || key.includes("gummy") || key.includes("sprinkles")) return "1/2 Cup";
+    if (key.includes("bread") || key.includes("bun") || key.includes("tortilla")) return "2";
+    if (key.includes("apple") || key.includes("banana") || key.includes("lime") || key.includes("lemon") || key.includes("pear")) return "1";
+    return "1 Cup";
+}
+
+function normalizeIngredient(ingredient) {
+    return String(ingredient || "").trim().toLowerCase();
 }
 
 function praiseLine() {

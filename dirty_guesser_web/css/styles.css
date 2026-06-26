@@ -15,6 +15,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 body {
@@ -25,17 +27,52 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    min-height: 100dvh;
     padding: 20px;
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overscroll-behavior: none;
 }
 
 #game-container {
     width: 100%;
-    max-width: 500px;
+    max-width: min(920px, 96vw);
     background-color: var(--card-bg);
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     text-align: center;
+}
+
+#portrait-lock {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 8vw;
+    text-align: center;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+#portrait-lock span {
+    font-size: clamp(2.5rem, 9vmin, 6rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#portrait-lock p {
+    max-width: 36rem;
+    color: var(--text-muted);
+    font-size: clamp(1.1rem, 4vmin, 2rem);
 }
 
 header h1 {
@@ -85,12 +122,14 @@ header h1 {
 
 #input-area {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
     margin-bottom: 1rem;
 }
 
 input[type="text"] {
+    flex: 1;
+    min-width: 0;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     border: 2px solid #334155;
@@ -115,6 +154,7 @@ input[type="text"]:focus {
     transition: all 0.2s;
     color: white;
     background-color: var(--primary-color);
+    min-height: 44px;
 }
 
 .btn:hover {
@@ -159,16 +199,95 @@ input[type="text"]:focus {
     background-color: rgba(236, 72, 153, 0.1);
 }
 
+.load-error {
+    text-align: center;
+    padding: 2rem;
+}
+
+.load-error h1 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.load-error p {
+    color: var(--text-muted);
+}
+
 .hidden {
     display: none !important;
 }
 
 @media (max-width: 480px) {
+    #input-area {
+        flex-direction: column;
+    }
+
     #game-container {
         padding: 1.5rem;
     }
     
     header h1 {
         font-size: 2rem;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+    body {
+        align-items: stretch;
+        padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    }
+
+    #game-container {
+        max-width: none;
+        min-height: 0;
+        padding: 1rem;
+        overflow-y: auto;
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+        font-size: clamp(1.6rem, 7vmin, 2.5rem);
+        margin-bottom: 0;
+    }
+
+    #score-board {
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+
+    #scenario-container {
+        min-height: 64px;
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    #hint-text {
+        font-size: clamp(1rem, 3.8vmin, 1.25rem);
+    }
+
+    #input-area {
+        flex-direction: row;
+        gap: 0.75rem;
+    }
+}
+
+@media (orientation: portrait) {
+    body {
+        overflow: hidden;
+    }
+
+    #portrait-lock {
+        display: flex;
+    }
+
+    #game-container {
+        display: none !important;
     }
 }

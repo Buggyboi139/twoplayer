@@ -15,11 +15,14 @@
 
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100dvh;
     overflow: hidden;
     background:
         radial-gradient(circle at 18% 20%, rgba(255, 0, 110, 0.32), transparent 30%),
@@ -28,6 +31,9 @@ body {
     color: var(--text);
     font-family: var(--body);
     font-variant-numeric: tabular-nums;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overscroll-behavior: none;
 }
 
 body::before {
@@ -42,6 +48,34 @@ body::before {
 
 body.shake {
     animation: screenShake 360ms ease;
+}
+
+#portrait-lock {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vmin;
+    padding: 8vw;
+    text-align: center;
+    background: #0A0014;
+    color: var(--cyan);
+}
+
+#portrait-lock span {
+    font-family: var(--display);
+    font-size: 8vmin;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 0 24px var(--cyan);
+}
+
+#portrait-lock p {
+    color: var(--muted);
+    font-size: 3.6vmin;
 }
 
 @keyframes screenShake {
@@ -80,8 +114,12 @@ button:disabled {
 #app {
     width: min(1500px, 96vw);
     height: 94vh;
+    height: 94dvh;
     margin: 3vh auto;
+    margin: 3dvh auto;
     position: relative;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
     border: 1px solid var(--border);
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 0, 110, 0.18);
     background: linear-gradient(180deg, rgba(10, 0, 20, 0.94), rgba(0, 0, 0, 0.72));
@@ -461,10 +499,35 @@ h1 span,
 }
 
 .ingredient-card {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    align-content: center;
     min-height: 82px;
     padding: 14px;
     line-height: 1.15;
     overflow-wrap: anywhere;
+}
+
+.ingredient-card .measurement {
+    color: var(--amber);
+    font-family: var(--display);
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.ingredient-card strong {
+    display: block;
+}
+
+.ingredient-card small {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    color: rgba(255, 255, 255, 0.42);
+    font-family: var(--body);
+    font-size: 0.68rem;
 }
 
 .ingredient-card.correct {
@@ -472,6 +535,11 @@ h1 span,
     background: var(--green);
     border-color: var(--green);
     box-shadow: 0 0 28px rgba(0, 255, 65, 0.56);
+}
+
+.ingredient-card.correct .measurement,
+.ingredient-card.correct small {
+    color: #00100A;
 }
 
 .ingredient-card.wrong {
@@ -780,6 +848,22 @@ h1 span,
     }
 }
 
+@media (orientation: portrait) {
+    body {
+        overflow: hidden;
+    }
+
+    #portrait-lock {
+        display: flex;
+    }
+
+    #app,
+    #effects-layer,
+    #particles {
+        display: none !important;
+    }
+}
+
 @media (max-width: 560px) {
     .category-grid,
     .ingredient-grid {
@@ -788,5 +872,107 @@ h1 span,
 
     .hud {
         align-items: stretch;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+    #app {
+        width: 100vw;
+        height: 100dvh;
+        margin: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .screen {
+        padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    }
+
+    button {
+        min-height: 44px;
+        padding: 10px 12px;
+        font-size: clamp(0.78rem, 2.6vmin, 1rem);
+    }
+
+    .small-btn {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+
+    .topline,
+    .hud {
+        gap: 8px;
+        margin-bottom: 10px;
+        padding: 8px;
+    }
+
+    .hero-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(190px, 0.58fr);
+        gap: 14px;
+    }
+
+    .title-actions {
+        grid-template-columns: 1fr 1fr auto;
+        gap: 8px;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 12vmin, 5.5rem);
+    }
+
+    .tagline {
+        font-size: clamp(1rem, 4.2vmin, 1.8rem);
+    }
+
+    .stove-panel {
+        min-height: 220px;
+    }
+
+    .burner {
+        width: 110px;
+        height: 110px;
+        border-width: 4px;
+    }
+
+    .pan {
+        padding: 14px 18px;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .category-card {
+        min-height: 118px;
+        padding: 10px;
+    }
+
+    .dish-board {
+        grid-template-columns: minmax(0, 1fr) minmax(180px, 0.32fr);
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+
+    #dish-name {
+        font-size: clamp(1.3rem, 6vmin, 2.4rem);
+    }
+
+    .tool-bar,
+    .ingredient-grid {
+        gap: 8px;
+    }
+
+    .ingredient-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .ingredient-card {
+        min-height: 50px;
+        padding: 8px;
+    }
+
+    .ingredient-card .measurement {
+        font-size: 0.72rem;
     }
 }

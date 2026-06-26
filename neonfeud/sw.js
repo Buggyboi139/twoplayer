@@ -1,4 +1,4 @@
-const CACHE_NAME = 'neon-feud-v16';
+const CACHE_NAME = 'neon-feud-v17';
 const ASSETS_TO_CACHE =[
   './',
   './index.html',
@@ -20,6 +20,17 @@ self.addEventListener('install', event => {
       .then(cache => {
         return cache.addAll(ASSETS_TO_CACHE);
       })
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 

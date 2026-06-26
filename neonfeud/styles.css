@@ -24,12 +24,14 @@
     padding: 0;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
 }
 
 body {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -41,6 +43,9 @@ body {
     color: var(--text-main);
     font-family: var(--font-body);
     font-variant-numeric: tabular-nums;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overscroll-behavior: none;
 }
 
 body::before {
@@ -157,7 +162,10 @@ button:disabled {
 #app-container {
     width: min(96vw, 1720px);
     height: 94vh;
+    height: 94dvh;
     position: relative;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 .screen {
@@ -194,7 +202,7 @@ button:disabled {
 }
 
 .back-btn {
-    min-height: 5.2vmin;
+    min-height: max(44px, 5.2vmin);
     padding: 1.1vmin 1.7vmin;
     font-size: clamp(0.78rem, 1.5vmin, 1rem);
     box-shadow: none;
@@ -963,5 +971,99 @@ h2 {
 
     #strikes-display {
         justify-self: end;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+    #app-container {
+        width: 100vw;
+        height: 100dvh;
+    }
+
+    .screen {
+        padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .top-bar {
+        margin-bottom: 1.2vmin;
+        padding: 1vmin;
+    }
+
+    button {
+        min-height: 44px;
+        padding: 10px 12px;
+        font-size: clamp(0.78rem, 2.6vmin, 1rem);
+    }
+
+    .back-btn,
+    .small-btn {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+
+    .logo {
+        font-size: clamp(2rem, 9vmin, 4rem);
+    }
+
+    .menu-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 0.72fr);
+        gap: 2vmin;
+    }
+
+    .brand-panel,
+    .command-panel,
+    .screen-heading,
+    .team-selection-area {
+        padding: 2vmin;
+    }
+
+    .store-grid,
+    .pack-select-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2vmin;
+    }
+
+    .pack-card {
+        min-height: 210px;
+    }
+
+    .game-top-bar {
+        grid-template-columns: auto auto minmax(0, 1fr) auto;
+    }
+
+    .query-box {
+        margin-bottom: 1vmin;
+        padding: 1.4vmin;
+        font-size: clamp(1rem, 4.8vmin, 2.1rem);
+    }
+
+    .board-row {
+        min-height: 44px;
+        padding: 8px;
+        font-size: clamp(0.86rem, 3.2vmin, 1.25rem);
+    }
+
+    .choices-area {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        min-height: 0;
+        padding: 8px;
+    }
+
+    .choice-btn {
+        min-height: 44px;
+        padding: 8px;
+    }
+
+    .lifeline-bar {
+        margin-top: 8px;
+        gap: 8px;
+    }
+
+    .lifeline-btn,
+    .give-up-btn {
+        min-height: 40px;
     }
 }
